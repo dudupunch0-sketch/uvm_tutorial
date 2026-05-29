@@ -1,0 +1,151 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Day 8, Agent와 Env</title><style>
+:root{color-scheme:light;--paper:oklch(96% .018 86);--paper-card:oklch(98% .014 88);--ink:oklch(21% .026 74);--ink-soft:oklch(39% .04 72);--muted:oklch(56% .035 77);--copper:oklch(55% .12 52);--green:oklch(47% .11 158);--shadow:0 24px 60px rgba(68,45,24,.12),0 4px 14px rgba(68,45,24,.08);--radius-sm:8px;--radius-md:14px;--radius-lg:22px;--radius-pill:999px;--mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;--serif:Georgia,"Iowan Old Style","Noto Serif KR","Apple SD Gothic Neo","Malgun Gothic",serif;--sans:"Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,BlinkMacSystemFont,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--sans);background:linear-gradient(90deg,rgba(90,62,31,.035) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(0deg,rgba(90,62,31,.032) 1px,transparent 1px) 0 0/28px 28px,radial-gradient(circle at 15% 6%,rgba(170,91,46,.12),transparent 34%),radial-gradient(circle at 92% 18%,rgba(45,111,88,.09),transparent 28%),var(--paper);text-rendering:optimizeLegibility}a{color:inherit}.shell{display:grid;grid-template-columns:minmax(260px,310px) minmax(0,1fr);min-height:100vh}aside{position:sticky;top:0;height:100vh;padding:26px 20px;color:rgba(255,250,232,.92);background:linear-gradient(180deg,#20271f,#131914);overflow:auto}.brand{display:flex;gap:10px;align-items:center;margin-bottom:20px}.brand-mark{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;color:#172016;background:linear-gradient(135deg,#f7d47a,#88d1a7);font-weight:900}.brand-title{margin:0;font:800 14px/1.2 var(--mono);letter-spacing:.04em;text-transform:uppercase}.brand-sub{margin:2px 0 0;color:rgba(255,250,232,.58);font-size:12px}.nav-label{margin:24px 0 8px;color:rgba(255,250,232,.54);font:800 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.12em}.nav-list{display:grid;gap:8px}.nav-list a{display:block;padding:10px 12px;border-radius:12px;text-decoration:none;color:rgba(255,250,232,.75);background:rgba(255,255,255,.04);font-size:13px}.nav-list a.active{color:#fff8da;background:rgba(247,212,122,.2);box-shadow:inset 0 0 0 1px rgba(247,212,122,.28)}.side-note{margin-top:20px;padding:12px;border-radius:14px;background:rgba(255,255,255,.06);color:rgba(255,250,232,.72);font-size:12px;line-height:1.55}main{min-width:0;padding:42px clamp(18px,4vw,56px) 70px}.hero,.section{max-width:1120px;margin:0 auto 24px;padding:clamp(24px,4vw,44px);border-radius:var(--radius-lg);background:rgba(255,255,255,.52);box-shadow:var(--shadow),inset 0 0 0 1px rgba(110,78,43,.1);backdrop-filter:blur(9px)}.section{margin-top:18px;padding:clamp(20px,3vw,30px);background:rgba(255,255,255,.48)}.eyebrow{margin:0 0 10px;color:var(--copper);font:900 12px/1 var(--mono);letter-spacing:.15em;text-transform:uppercase}h1,h2,h3{letter-spacing:-.035em}h1{margin:0;max-width:920px;font:900 clamp(34px,7vw,82px)/.92 var(--serif)}h2{margin:0;font:850 clamp(24px,4vw,42px)/1 var(--serif)}.hero p{max-width:820px;font-size:17px;line-height:1.72;color:var(--ink-soft)}.hero-grid,.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}.hero-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-card,.card{padding:18px;border-radius:var(--radius-md);background:rgba(255,255,255,.62);box-shadow:inset 0 0 0 1px rgba(110,78,43,.1);line-height:1.62}.hero-card strong,.card strong{display:block;margin-bottom:6px;color:var(--ink)}.pill-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.soft-button{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 14px;border:0;border-radius:var(--radius-pill);text-decoration:none;background:#243026;color:#fff7dd;font-weight:800;font-size:13px;cursor:pointer}.soft-button.light{background:rgba(229,239,220,.72);color:var(--green)}.section-header{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:16px}.trace-list{counter-reset:step;display:grid;gap:10px;padding:0;margin:0;list-style:none}.trace-list li{counter-increment:step;display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start;padding:12px;border-radius:14px;background:rgba(250,246,229,.72)}.trace-list li:before{content:counter(step);width:28px;height:28px;display:grid;place-items:center;border-radius:50%;color:#fff8de;background:var(--green);font:900 12px/1 var(--mono)}.source-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.source-card{min-width:0;padding:15px;border-radius:var(--radius-md);background:rgba(24,30,25,.93);box-shadow:0 18px 40px rgba(24,30,25,.14),inset 0 0 0 1px rgba(255,255,255,.07)}.source-title{margin:0 0 6px;color:rgba(255,250,232,.96);font:800 14px/1.25 var(--mono)}.source-path{margin:0 0 8px;color:oklch(83% .1 84);font:700 12px/1.35 var(--mono);word-break:break-word}.source-note{margin:0 0 10px;color:rgba(255,250,232,.72);font-size:13px;line-height:1.55}.source-code{max-height:390px;overflow:auto;margin:0;padding:13px;border-radius:var(--radius-sm);color:rgba(255,250,232,.88);background:rgba(7,12,9,.72);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);font:500 12px/1.62 var(--mono);white-space:pre;tab-size:3}.source-code code{display:block;min-width:max-content}.source-code .code-line{display:block;min-height:1.62em;padding-right:24px}.source-code .code-line:hover{background:rgba(255,250,232,.04)}.source-code .line-no{color:rgba(255,250,232,.36);user-select:none}.source-code .sv-keyword{color:#8bd7ff;font-weight:800}.source-code .sv-type{color:#7dd3c7;font-weight:750}.source-code .sv-uvm{color:#d8b4fe;font-weight:800}.source-code .sv-macro{color:#ffd166;font-weight:800}.source-code .sv-number{color:#f4a261}.source-code .sv-string{color:#a6e3a1}.source-code .sv-comment{color:rgba(202,211,191,.58);font-style:italic}.checklist{display:grid;gap:10px}.check-item{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:12px;border-radius:14px;background:rgba(250,246,229,.72)}.check-item input{margin-top:4px;accent-color:var(--green)}.quiz-card{padding:16px;border-radius:var(--radius-md);background:rgba(255,255,255,.62);box-shadow:inset 0 0 0 1px rgba(110,78,43,.1)}.quiz-options{display:flex;flex-wrap:wrap;gap:8px}.quiz-option{border:0;border-radius:999px;padding:9px 12px;background:rgba(36,48,38,.1);color:var(--ink);font-weight:750;cursor:pointer}.quiz-option.correct{background:rgba(53,137,98,.18);color:var(--green)}.quiz-option.wrong{background:rgba(184,70,47,.14);color:#9d351f}.feedback{min-height:1.3em;color:var(--ink-soft);font-size:13px}.prompt-box{width:100%;min-height:150px;resize:vertical;padding:14px;border:0;border-radius:14px;background:#181e19;color:rgba(255,250,232,.88);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);font:500 13px/1.7 var(--mono)}.progress{height:10px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.12);margin-top:14px}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#f7d47a,#88d1a7);transition:width .18s ease}.footer-note{max-width:1120px;margin:24px auto 0;color:var(--muted);font-size:13px}@media(max-width:900px){.shell{display:block}aside{position:relative;height:auto}.hero-grid,.grid-3,.source-grid{grid-template-columns:1fr}main{padding:18px}}
+</style></head><body data-storage-key="uvm-day8-workbook-v2"><div class="shell"><aside><div class="brand"><div class="brand-mark">U</div><div><p class="brand-title">UVM workbook</p><p class="brand-sub">Practical UVM Step by Step</p></div></div><p class="nav-label">curriculum</p><nav class="nav-list"><a class="" href="day0_repo_orientation.html">Day 0. Repo orientation</a><a class="" href="day1_uvm_mental_model.html">Day 1. UVM 전체 구조 mental model</a><a class="" href="day2_top_and_run_test.html">Day 2. Simulation entry point: top module과 run_test</a><a class="" href="day3_test_class_and_phase.html">Day 3. UVM test class와 phase</a><a class="" href="day4_transaction_item.html">Day 4. Transaction / sequence item</a><a class="" href="day5_sequence_and_sequencer.html">Day 5. Sequence와 Sequencer</a><a class="" href="day6_interface_and_driver.html">Day 6. Interface와 Driver</a><a class="" href="day7_monitor_analysis_port.html">Day 7. Monitor와 analysis port</a><a class="active" href="day8_agent_and_env.html">Day 8. Agent와 Env</a><a class="" href="day9_scoreboard_and_coverage.html">Day 9. Scoreboard와 Coverage</a><a class="" href="day10_config_db_factory.html">Day 10. Config DB와 Factory</a><a class="" href="day11_run_flow_makefile.html">Day 11. Run flow / Makefile 읽기</a><a class="" href="day12_transaction_change_lab.html">Day 12. 첫 수정 실습: transaction field 추가 사고 실험</a><a class="" href="day13_new_sequence_lab.html">Day 13. 첫 구현 실습: 새 sequence 설계</a><a class="" href="day14_phase_callbacks.html">Day 14. Advanced 1: phase callback</a><a class="" href="day15_ral_register_model.html">Day 15. Advanced 2: RAL/register model</a><a class="" href="day16_part1_core_utilities.html">Day 16. Part 1: UVM core utilities</a><a class="" href="day17_part3_stimulus_generation.html">Day 17. Part 3: Stimulus generation</a><a class="" href="day18_reactive_slave_sequence.html">Day 18. Advanced 3: Reactive slave sequence</a><a class="" href="day19_spanning_phases.html">Day 19. Advanced 4: Spanning phases</a><a class="" href="day20_coverage_closure_wb_dma.html">Day 20. Advanced 5: Coverage closure와 wb_dma</a><a class="" href="day21_soc_case_studies.html">Day 21. SOC-scale case studies: ethernet, wb_conmax, vga_lcd</a></nav><div class="side-note"><strong>진행률 <span id="progressText">0%</span></strong><div class="progress"><span id="progressBar"></span></div><p>체크박스와 퀴즈 선택은 이 브라우저의 localStorage에 저장됩니다.</p><button class="soft-button light" id="resetProgress" type="button">진행률 초기화</button></div></aside><main><section class="hero"><p class="eyebrow">Day 8</p><h1>Agent와 Env</h1><p>driver/sequencer/monitor를 agent로 묶고 agent들을 env로 묶는 계층 구조를 이해한다.</p><div class="hero-grid"><div class="hero-card"><strong>오늘의 완료 기준</strong>왜 driver/monitor를 test에 직접 만들지 않고 agent/env로 감싸는지 답한다.</div><div class="hero-card"><strong>학습 루프</strong>개념 -> 실제 파일 -> 흐름 추적 -> 퀴즈 -> 작은 실습 순서로 진행합니다.</div></div><div class="pill-row"><a class="soft-button light" href="day7_monitor_analysis_port.html">이전 Day</a><a class="soft-button" href="day9_scoreboard_and_coverage.html">다음 Day</a><a class="soft-button light" href="index.html">전체 목차</a></div></section><section class="section"><div class="section-header"><div><p class="eyebrow">mental model</p><h2>오늘 잡을 개념</h2></div></div><div class="grid-3"><article class="card"><strong>agent</strong>한 interface/protocol에 대한 driver, sequencer, monitor 묶음이다.</article><article class="card"><strong>active/passive</strong>drive까지 할지 관찰만 할지 설정할 수 있다.</article><article class="card"><strong>env</strong>여러 agent와 checking/coverage를 조립한다.</article></div></section><section class="section"><div class="section-header"><div><p class="eyebrow">trace</p><h2>읽는 순서</h2></div></div><ol class="trace-list"><li>master_agent build_phase 확인</li><li>virtual interface 하위 전달 확인</li><li>env connect_phase 확인</li></ol></section><section class="section"><div class="section-header"><div><p class="eyebrow">source reading</p><h2>실제 코드 발췌</h2></div></div><div class="source-grid"><article class="source-card"><p class="source-title">master agent</p><p class="source-path">Part_2-Putting_it_all_Together/env/wb_master_agent.sv, lines 9-58</p><p class="source-note">monitor, sequencer, driver 생성과 virtual interface 전달을 본다.</p><pre class="source-code"><code>   9|class wb_master_agent extends uvm_agent;
+  10|   // ToDo: add uvm agent properties here
+  11|   protected uvm_active_passive_enum is_active = UVM_ACTIVE;
+  12|   wb_master_seqr mast_sqr;
+  13|   wb_master mast_drv;
+  14|   wb_master_mon mast_mon;
+  15|   typedef virtual wb_master_if vif;
+  16|   vif mast_agt_if;
+  17|   wb_config mstr_agent_cfg;
+  18|
+  19|
+  20|   `uvm_component_utils_begin(wb_master_agent)
+  21|      `uvm_field_object(mast_sqr, UVM_DEFAULT)
+  22|      `uvm_field_object(mast_drv, UVM_DEFAULT)
+  23|      `uvm_field_object(mast_mon, UVM_DEFAULT)
+  24|      `uvm_field_object (mstr_agent_cfg,UVM_DEFAULT)
+  25|   `uvm_component_utils_end
+  26|
+  27|   // ToDo: Add required short hand override method
+  28|
+  29|   function new(string name = &quot;mast_agt&quot;, uvm_component parent = null);
+  30|      super.new(name, parent);
+  31|   endfunction
+  32|
+  33|   virtual function void build_phase(uvm_phase phase);
+  34|      super.build_phase(phase);
+  35|      uvm_config_db #(wb_config)::get(this, &quot;&quot;, &quot;config&quot;, mstr_agent_cfg);
+  36|
+  37|      mast_mon = wb_master_mon::type_id::create(&quot;mast_mon&quot;, this);
+  38|      if (is_active == UVM_ACTIVE) begin
+  39|         mast_sqr = wb_master_seqr::type_id::create(&quot;mast_sqr&quot;, this);
+  40|         mast_drv = wb_master::type_id::create(&quot;mast_drv&quot;, this);
+  41|	 mast_drv.mstr_drv_cfg = mstr_agent_cfg;
+  42|         mast_sqr.cfg = mstr_agent_cfg;
+  43|	 mast_mon.mstr_mon_cfg = mstr_agent_cfg;
+  44|
+  45|      end
+  46|      if (!uvm_config_db#(vif)::get(this, &quot;&quot;, &quot;mst_if&quot;, mast_agt_if)) begin
+  47|         `uvm_fatal(&quot;AGT/NOVIF&quot;, &quot;No virtual interface specified for this agent instance Master Agent&quot;)
+  48|      end
+  49|      uvm_config_db# (vif)::set(this,&quot;mast_drv&quot;,&quot;mst_if&quot;,mast_agt_if);
+  50|      uvm_config_db# (vif)::set(this,&quot;mast_mon&quot;,&quot;mon_if&quot;,mast_agt_if);
+  51|
+  52|      // Now getting the configuration
+  53|   endfunction: build_phase
+  54|
+  55|   virtual function void connect_phase(uvm_phase phase);
+  56|      super.connect_phase(phase);
+  57|      if (is_active == UVM_ACTIVE) begin
+  58|	 mast_drv.seq_item_port.connect(mast_sqr.seq_item_export);</code></pre></article><article class="source-card"><p class="source-title">slave agent</p><p class="source-path">Part_2-Putting_it_all_Together/env/wb_slave_agent.sv, lines 5-48</p><p class="source-note">slave driver와 slave sequencer의 추가 연결도 보인다.</p><pre class="source-code"><code>   5|class wb_slave_agent extends uvm_agent;
+   6|   protected uvm_active_passive_enum is_active = UVM_ACTIVE;
+   7|   wb_slave slv_drv;
+   8|   wb_slave_mon slv_mon;
+   9|   wb_slave_seqr slv_seqr;
+  10|   typedef virtual wb_slave_if vif;
+  11|   vif slv_agt_if;
+  12|
+  13|   wb_config slv_agent_cfg;
+  14|
+  15|   `uvm_component_utils_begin(wb_slave_agent)
+  16|      `uvm_field_object(slv_seqr, UVM_DEFAULT)
+  17|      `uvm_field_object(slv_drv, UVM_DEFAULT)
+  18|      `uvm_field_object(slv_mon, UVM_DEFAULT)
+  19|   `uvm_component_utils_end
+  20|
+  21|
+  22|   function new(string name = &quot;slv_agt&quot;, uvm_component parent = null);
+  23|      super.new(name, parent);
+  24|   endfunction
+  25|
+  26|   virtual function void build_phase(uvm_phase phase);
+  27|      super.build_phase(phase);
+  28|      uvm_config_db #(wb_config)::get(this, &quot;&quot;, &quot;config&quot;, slv_agent_cfg);
+  29|
+  30|      slv_mon = wb_slave_mon::type_id::create(&quot;slv_mon&quot;, this);
+  31|      if (is_active == UVM_ACTIVE) begin
+  32|         slv_seqr = wb_slave_seqr::type_id::create(&quot;slv_seqr&quot;,this);
+  33|         slv_drv = wb_slave::type_id::create(&quot;slv_drv&quot;, this);
+  34|	 slv_drv.wb_slave_cfg  = slv_agent_cfg;
+  35|	 slv_mon.slv_mon_cfg = slv_agent_cfg;
+  36|      end
+  37|      if (!uvm_config_db#(vif)::get(this, &quot;&quot;, &quot;slv_if&quot;, slv_agt_if)) begin
+  38|         `uvm_fatal(&quot;AGT/NOVIF&quot;, &quot;No virtual interface specified for this agent instance&quot;)
+  39|      end
+  40|      uvm_config_db# (vif)::set(this,&quot;slv_drv&quot;,&quot;slv_if&quot;,slv_agt_if);
+  41|      uvm_config_db# (vif)::set(this,&quot;slv_mon&quot;,&quot;mon_if&quot;,slv_agt_if);
+  42|   endfunction: build_phase
+  43|
+  44|   virtual function void connect_phase(uvm_phase phase);
+  45|      super.connect_phase(phase);
+  46|      if (is_active == UVM_ACTIVE) begin
+  47|	 slv_drv.seq_item_port.connect(slv_seqr.seq_item_export);
+  48|	 slv_seqr.m_getp.connect(slv_drv.getp);</code></pre></article><article class="source-card"><p class="source-title">env container</p><p class="source-path">Part_2-Putting_it_all_Together/env/wb_env_env.sv, lines 4-45</p><p class="source-note">agent, coverage, scoreboard를 만드는 최상위 UVM env다.</p><pre class="source-code"><code>   4|class wb_env_env extends uvm_env;
+   5|   wb_master_agent master_agent;
+   6|   wb_slave_agent slave_agent;
+   7|    wb_env_cov cov;
+   8|
+   9|   wb_master_mon_2cov_connect mon2cov;
+  10|   wb_scoreboard sb;
+  11|   `uvm_component_utils(wb_env_env)
+  12|
+  13|   extern function new(string name=&quot;wb_env_env&quot;, uvm_component parent=null);
+  14|   extern virtual function void build_phase(uvm_phase phase);
+  15|   extern virtual function void connect_phase(uvm_phase phase);
+  16|   extern virtual function void report_phase(uvm_phase phase);
+  17|
+  18|endclass: wb_env_env
+  19|
+  20|function wb_env_env::new(string name= &quot;wb_env_env&quot;,uvm_component parent=null);
+  21|   super.new(name,parent);
+  22|endfunction:new
+  23|
+  24|function void wb_env_env::build_phase(uvm_phase phase);
+  25|   super.build_phase(phase);
+  26|   master_agent = wb_master_agent::type_id::create(&quot;master_agent&quot;,this);
+  27|   slave_agent = wb_slave_agent::type_id::create(&quot;slave_agent&quot;,this);
+  28|
+  29|    cov = wb_env_cov::type_id::create(&quot;cov&quot;,this); //Instantiating the coverage class
+  30|
+  31|    mon2cov  = wb_master_mon_2cov_connect::type_id::create(&quot;mon2cov&quot;, this);
+  32|    mon2cov.cov = cov;
+  33|	 sb = wb_scoreboard::type_id::create(&quot;sb&quot;,this);
+  34|
+  35|endfunction: build_phase
+  36|
+  37|function void wb_env_env::connect_phase(uvm_phase phase);
+  38|   super.connect_phase(phase);
+  39|   master_agent.mast_mon.mon_analysis_port.connect(cov.cov_export);
+  40|  master_agent.mast_mon.mon_analysis_port.connect(sb.expected_wb_transaction_fifo.analysis_export);
+  41|   slave_agent.slv_mon.mon_analysis_port.connect(sb.actual_wb_transaction_fifo.analysis_export);
+  42|
+  43|endfunction: connect_phase
+  44|
+  45|function void wb_env_env::report_phase(uvm_phase phase);</code></pre></article></div></section><section class="section"><div class="section-header"><div><p class="eyebrow">checkpoint</p><h2>체크리스트</h2></div></div><div class="checklist"><label class="check-item"><input type="checkbox" data-progress="d8-1"><span>agent가 protocol 단위 묶음임을 이해했다</span></label><label class="check-item"><input type="checkbox" data-progress="d8-2"><span>active/passive 의미를 안다</span></label><label class="check-item"><input type="checkbox" data-progress="d8-3"><span>build_phase와 connect_phase를 구분한다</span></label></div></section><section class="section"><div class="section-header"><div><p class="eyebrow">quiz</p><h2>확인 문제</h2></div></div><article class="quiz-card" data-question="q1"><p><strong>1. 오늘 자료의 완료 기준에 가장 가까운 것은?</strong></p><div class="quiz-options"><button class="quiz-option" type="button" data-correct="true">agent가 protocol 단위 묶음임을 이해했다</button><button class="quiz-option" type="button" data-correct="false">모든 중복 파일을 처음부터 끝까지 읽기</button><button class="quiz-option" type="button" data-correct="false">DUT RTL을 먼저 수정하기</button></div><p class="feedback"></p></article></section><section class="section"><div class="section-header"><div><p class="eyebrow">practice</p><h2>작은 실습</h2></div></div><div class="card"><strong>실습 과제</strong>master_agent에서 mast_drv.seq_item_port가 어디에 connect되는지 찾고 의미를 설명하세요.</div></section><section class="section"><div class="section-header"><div><p class="eyebrow">study loop</p><h2>모르면 이렇게 물어보세요</h2></div></div><textarea class="prompt-box" id="promptBox" spellcheck="false">나는 SystemVerilog UVM Day 8 자료를 보고 있어.
+주제: Agent와 Env
+관련 파일:
+- Part_2-Putting_it_all_Together/env/wb_master_agent.sv
+- Part_2-Putting_it_all_Together/env/wb_slave_agent.sv
+- Part_2-Putting_it_all_Together/env/wb_env_env.sv
+
+내가 이해한 내용:
+[여기에 내 말로 요약]
+
+헷갈리는 지점:
+[질문]
+
+위 실제 파일 발췌를 기준으로 초보자 관점에서 다시 설명하고, 확인 질문 3개를 내줘.</textarea><div class="pill-row"><button class="soft-button" type="button" id="copyPrompt">질문 템플릿 복사</button></div></section><p class="footer-note">Generated by project skill: skills/uvm-practical-lecture-builder. 실제 repo 파일 발췌를 기준으로 만든 학습 자료입니다.</p></main></div><script>
+const storageKey=document.body.dataset.storageKey;const state=JSON.parse(localStorage.getItem(storageKey)||"{}");function escapeHtml(value){return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;")}const svKeywords=new Set(`always always_comb always_ff always_latch and assign automatic begin break case casex casez class clocking config constraint continue covergroup coverpoint cross default disable do edge else end endcase endclass endclocking endconfig endfunction endgenerate endgroup endinterface endmodule endpackage endprogram endproperty endsequence endtask enum expect export extends extern final for force forever fork function generate genvar if iff import initial inout input inside interface join join_any join_none local localparam logic modport module negedge new null or output package parameter posedge program property protected pure rand randc ref release repeat return sequence soft solve static super tagged task this through timeprecision timeunit typedef unique unique0 virtual wait while with`.trim().split(/\s+/));const svTypes=new Set(`bit byte chandle event int integer longint mailbox process real realtime reg semaphore shortint shortreal signed string time tri unsigned var void wire`.trim().split(/\s+/));function highlightSystemVerilog(source){const tokenPattern=/\/\/[^\n]*|\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|`[A-Za-z_][A-Za-z0-9_$]*|(?:\d+)?'[sS]?[bBoOdDhH][0-9a-fA-F_xXzZ?]+|\b\d+(?:\.\d+)?\b|\b[A-Za-z_][$\w]*\b/g;let cursor=0;let out="";for(const match of source.matchAll(tokenPattern)){const token=match[0];out+=escapeHtml(source.slice(cursor,match.index));let cls="";if(token.startsWith("//")||token.startsWith("/*"))cls="sv-comment";else if(token.startsWith("\""))cls="sv-string";else if(token.startsWith("`"))cls="sv-macro";else if(/^(?:\d+)?'[sS]?[bBoOdDhH]/.test(token)||/^\d/.test(token))cls="sv-number";else if(/^(?:uvm_|UVM_)/.test(token))cls="sv-uvm";else if(svKeywords.has(token))cls="sv-keyword";else if(svTypes.has(token))cls="sv-type";out+=cls?`<span class="${cls}">${escapeHtml(token)}</span>`:escapeHtml(token);cursor=match.index+token.length}return out+escapeHtml(source.slice(cursor))}function renderLine(line,lang){const m=line.match(/^(\s*(?:\d+|\.\.\.)\|)(.*)$/);const gutter=m?`<span class="line-no">${escapeHtml(m[1])}</span>`:"";const body=m?m[2]:line;return `<span class="code-line">${gutter}${lang==="sv"?highlightSystemVerilog(body):escapeHtml(body)}</span>`}function langFromPath(path){return /\.(?:sv|svh)\b|\.incl\b/.test(path)?"sv":"plain"}function highlightBlocks(){document.querySelectorAll(".source-card").forEach(card=>{const path=card.querySelector(".source-path")?.textContent||"";const lang=langFromPath(path);card.querySelectorAll("pre.source-code > code").forEach(code=>{const source=code.textContent;code.innerHTML=source.split(/\n/).map(line=>renderLine(line,lang)).join("")})})}function save(){localStorage.setItem(storageKey,JSON.stringify(state))}function progress(){const checks=Array.from(document.querySelectorAll("input[data-progress]"));const done=checks.filter(x=>x.checked).length;const pct=checks.length?Math.round(done/checks.length*100):0;document.getElementById("progressText").textContent=pct+"%";document.getElementById("progressBar").style.width=pct+"%"}document.querySelectorAll("input[data-progress]").forEach(input=>{const key=input.dataset.progress;input.checked=Boolean(state[key]);input.addEventListener("change",()=>{state[key]=input.checked;save();progress()})});document.querySelectorAll(".quiz-card").forEach(card=>{const key=card.dataset.question;const saved=state[key];const feedback=card.querySelector(".feedback");const opts=Array.from(card.querySelectorAll(".quiz-option"));function mark(opt){const ok=opt.dataset.correct==="true";opts.forEach(x=>x.classList.remove("correct","wrong"));opt.classList.add(ok?"correct":"wrong");feedback.textContent=ok?"맞았습니다. 이 개념은 다음 단계에서도 계속 씁니다.":"아직 아닙니다. 위 source와 trace를 다시 확인하세요.";state[key]=opts.indexOf(opt);save()}opts.forEach(opt=>opt.addEventListener("click",()=>mark(opt)));if(typeof saved==="number"&&opts[saved])mark(opts[saved])});const copy=document.getElementById("copyPrompt");if(copy)copy.addEventListener("click",async()=>{const box=document.getElementById("promptBox");try{await navigator.clipboard.writeText(box.value);copy.textContent="복사됨"}catch(e){box.select();copy.textContent="선택됨, Ctrl+C"}setTimeout(()=>copy.textContent="질문 템플릿 복사",1600)});const reset=document.getElementById("resetProgress");if(reset)reset.addEventListener("click",()=>{localStorage.removeItem(storageKey);location.reload()});highlightBlocks();progress();
+</script></body></html>

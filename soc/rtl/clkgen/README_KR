@@ -1,0 +1,16 @@
+Clock 및 reset generation module
+
+이 module은 main reset 및 clock generation module로 사용해야 합니다. asynchronous reset과
+unbuffered clock line이 이 module로 들어와야 하며, main design file의 define에 따라 적절한 clock과
+clock-synchronous reset을 생성해야 합니다.
+
+현재 Actel 및 Xilinx technology가 지원됩니다. board에 따라 clock-configuration을 처리하는 현재 방식이
+이상적인지는 명확하지 않습니다. 추가 board support가 더해지면 매우 복잡해질 가능성이 있으며, 이 부분은
+검토가 필요할 것입니다.
+
+여기에서 instantiate되는 technology-dependent module(PLL, buffer)은 backend/vendor/rtl path 아래에
+위치해야 합니다.
+
+앞서 언급했듯이 이것이 clock 및 reset generation 작업을 관리하는 최선의 방법인지는 명확하지 않습니다.
+특히 더 특수한 clock domain을 추가하려는 경우에는 더욱 그렇습니다. 하지만 모든 clock과 reset이 이 module로
+들어와 생성된다는 엄격한 규칙 아래 한 곳에서 모두 관리된다는 장점이 있습니다.

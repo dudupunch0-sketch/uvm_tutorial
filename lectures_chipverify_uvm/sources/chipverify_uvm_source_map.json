@@ -1,0 +1,567 @@
+{
+  "generated_at": "2026-05-26T10:01:48.979383+00:00",
+  "start_url": "https://chipverify.com/tutorials/uvm/",
+  "fetch_status": "ok",
+  "scope_note": "ChipVerify UVM start page plus linked https://chipverify.com/uvm/... topic pages. Only URL/title/day metadata is stored; source article bodies are not mirrored.",
+  "copyright_guardrail": "Do not bulk-copy ChipVerify article bodies or long code blocks. Re-author Korean explanations and compact examples; link original URLs for reading.",
+  "discovered_sources": [
+    {
+      "url": "https://chipverify.com/tutorials/uvm",
+      "title": "Back",
+      "assigned_days": []
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-introduction",
+      "title": "UVM Introduction",
+      "assigned_days": [
+        1
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-installation",
+      "title": "UVM Installation",
+      "assigned_days": [
+        2
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-hello-world",
+      "title": "Hello UVM !",
+      "assigned_days": [
+        2
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/base-classes",
+      "title": "Base Classes",
+      "assigned_days": [
+        3
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-root",
+      "title": "UVM Root [uvm_root]",
+      "assigned_days": [
+        3
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-object",
+      "title": "UVM Object [uvm_object]",
+      "assigned_days": [
+        4
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-component",
+      "title": "UVM Component [uvm_component]",
+      "assigned_days": [
+        5
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-object-pack-unpack",
+      "title": "UVM Object Pack/Unpack",
+      "assigned_days": [
+        4
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-object-compare",
+      "title": "UVM Object Compare",
+      "assigned_days": [
+        4
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-object-print",
+      "title": "UVM Object Print",
+      "assigned_days": [
+        4
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-object-copy-clone",
+      "title": "UVM Object Copy/Clone",
+      "assigned_days": [
+        4
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-testbench-top",
+      "title": "UVM Testbench Top",
+      "assigned_days": [
+        5
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-test",
+      "title": "UVM Test [uvm_test]",
+      "assigned_days": [
+        5
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-environment",
+      "title": "UVM Environment [uvm_env]",
+      "assigned_days": [
+        6
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-agent",
+      "title": "UVM Agent | uvm_agent",
+      "assigned_days": [
+        6
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-driver",
+      "title": "UVM Driver [uvm_driver]",
+      "assigned_days": [
+        7
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-monitor",
+      "title": "UVM Monitor [uvm_monitor]",
+      "assigned_days": [
+        7
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-subscriber",
+      "title": "Subscriber [uvm_subscriber]",
+      "assigned_days": [
+        7
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-sequencer",
+      "title": "UVM Sequencer [uvm_sequencer]",
+      "assigned_days": [
+        8
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-scoreboard",
+      "title": "UVM Scoreboard",
+      "assigned_days": [
+        8
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-phases",
+      "title": "UVM Phases",
+      "assigned_days": [
+        9
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-objection",
+      "title": "UVM Objection",
+      "assigned_days": [
+        10
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-user-defined-phase",
+      "title": "Creating user-defined phases",
+      "assigned_days": [
+        10
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-sequence",
+      "title": "UVM Sequence [uvm_sequence]",
+      "assigned_days": [
+        11
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/how-to-create-and-use-a-sequence",
+      "title": "How to create and use a sequence",
+      "assigned_days": [
+        11
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/how-to-execute-sequences-via-start-method",
+      "title": "How to execute sequences via start( )",
+      "assigned_days": [
+        12
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/how-to-execute-sequences-via-uvm-do-macros",
+      "title": "Executing sequence macros",
+      "assigned_days": [
+        12
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-do-macros",
+      "title": "How to use `uvm_do sequence macros ?",
+      "assigned_days": [
+        12
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/sequence-action-macros-for-pre-existing-items",
+      "title": "Sequence action macros for pre-existing items",
+      "assigned_days": [
+        12
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-tlm",
+      "title": "UVM TLM",
+      "assigned_days": [
+        15
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-tlm-blocking-put-port",
+      "title": "UVM TLM Blocking Put Port",
+      "assigned_days": [
+        15
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-tlm-blocking-get-port",
+      "title": "UVM TLM Blocking Get Port",
+      "assigned_days": [
+        15
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-tlm-fifo",
+      "title": "UVM TLM Fifo [uvm_tlm_fifo]",
+      "assigned_days": [
+        16
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-tlm-example",
+      "title": "UVM TLM Example",
+      "assigned_days": [
+        16
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-tlm-analysis-port",
+      "title": "UVM TLM Analysis Port",
+      "assigned_days": [
+        17
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-tlm-sockets",
+      "title": "UVM TLM Sockets",
+      "assigned_days": [
+        17
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/using-decl-macro-in-tlm",
+      "title": "Using _decl macro in TLM",
+      "assigned_days": [
+        17
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-tlm-nonblocking-put-port",
+      "title": "UVM TLM Nonblocking Put Port",
+      "assigned_days": [
+        17
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-tlm-port-export-imp",
+      "title": "UVM TLM Port to Export to Imp",
+      "assigned_days": [
+        17
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-tlm-nonblocking-get-port",
+      "title": "UVM TLM Non-blocking Get Port",
+      "assigned_days": [
+        17
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-factory-override",
+      "title": "UVM Factory Override",
+      "assigned_days": [
+        18
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/configure-components",
+      "title": "Configure Components",
+      "assigned_days": [
+        19
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/understanding-the-resource-database",
+      "title": "Understanding the resource database",
+      "assigned_days": [
+        20
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-config-db",
+      "title": "UVM config database",
+      "assigned_days": [
+        19
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-config-db-examples",
+      "title": "uvm_config_db Examples",
+      "assigned_days": [
+        19
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-register-layer",
+      "title": "UVM Register Abstraction Layer",
+      "assigned_days": [
+        21
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-register-model",
+      "title": "UVM Register Model Classes",
+      "assigned_days": [
+        21
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-register-environment",
+      "title": "UVM Register Environment",
+      "assigned_days": [
+        22
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/connecting-register-env",
+      "title": "Connecting register env",
+      "assigned_days": [
+        22
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-register-backdoor-access",
+      "title": "UVM Register Backdoor Access",
+      "assigned_days": [
+        23
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-register-model-example",
+      "title": "UVM Register Model Example",
+      "assigned_days": [
+        23
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/reporting-classes",
+      "title": "Reporting Classes",
+      "assigned_days": [
+        24
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/report-functions",
+      "title": "Reporting Functions",
+      "assigned_days": [
+        24
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-printer",
+      "title": "How to use uvm_printer",
+      "assigned_days": [
+        24
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-comparer",
+      "title": "Setting policy using uvm_comparer",
+      "assigned_days": [
+        24
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-callback",
+      "title": "UVM Callback",
+      "assigned_days": [
+        25
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-event",
+      "title": "UVM Event",
+      "assigned_days": [
+        25
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-event-pool",
+      "title": "UVM Event Pool",
+      "assigned_days": [
+        25
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-utility-field-macros",
+      "title": "UVM utility & field macros",
+      "assigned_days": [
+        26
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-field-macros",
+      "title": "UVM Field Macros",
+      "assigned_days": [
+        26
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-virtual-sequence",
+      "title": "UVM Virtual Sequence",
+      "assigned_days": [
+        13
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-virtual-sequencer",
+      "title": "UVM Virtual Sequencer",
+      "assigned_days": [
+        13
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-sequence-library",
+      "title": "UVM Sequence Library",
+      "assigned_days": [
+        13
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-sequence-arbitration",
+      "title": "UVM Sequence Arbitration",
+      "assigned_days": [
+        13
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-using-get-next-item",
+      "title": "Using get_next_item()",
+      "assigned_days": [
+        14
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-transaction-object",
+      "title": "Transaction Object",
+      "assigned_days": [
+        14
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/driver-using-get-and-put",
+      "title": "Using get() and put()",
+      "assigned_days": [
+        14
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-hdl-access-routines",
+      "title": "HDL access routines",
+      "assigned_days": [
+        26
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-singleton-object",
+      "title": "UVM Singleton Object",
+      "assigned_days": [
+        26
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/reusable-verification-components",
+      "title": "Guide - Developing Reusable Verification Components",
+      "assigned_days": [
+        27
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/verification-components",
+      "title": "Guide - Using Verification Components",
+      "assigned_days": [
+        27
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-verification-testbench-example",
+      "title": "UVM Verification Testbench Example",
+      "assigned_days": [
+        28
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-testbench-example-1",
+      "title": "UVM Testbench Example 1",
+      "assigned_days": [
+        29
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-testbench-example-2",
+      "title": "UVM Testbench Example 2",
+      "assigned_days": [
+        29
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-interview-questions-set-1",
+      "title": "UVM Interview Questions Set 1",
+      "assigned_days": [
+        30
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-interview-questions-set-2",
+      "title": "UVM Interview Questions Set 2",
+      "assigned_days": [
+        30
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-interview-questions-set-3",
+      "title": "UVM Interview Questions Set 3",
+      "assigned_days": [
+        30
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm/uvm-interview-questions-set-4",
+      "title": "UVM Interview Questions Set 4",
+      "assigned_days": [
+        30
+      ]
+    },
+    {
+      "url": "https://chipverify.com/uvm-reference",
+      "title": "UVM Reference",
+      "assigned_days": [
+        30
+      ]
+    }
+  ]
+}

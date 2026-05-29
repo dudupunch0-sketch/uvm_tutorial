@@ -1,0 +1,125 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Day 2. UVM installation and Hello UVM</title><style>:root{color-scheme:light;--paper:oklch(96% .018 86);--paper-card:oklch(98% .014 88);--ink:oklch(21% .026 74);--ink-soft:oklch(39% .04 72);--muted:oklch(56% .035 77);--copper:oklch(55% .12 52);--green:oklch(47% .11 158);--blue:oklch(48% .11 245);--shadow:0 24px 60px rgba(68,45,24,.12),0 4px 14px rgba(68,45,24,.08);--radius-sm:8px;--radius-md:14px;--radius-lg:22px;--radius-pill:999px;--mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;--serif:Georgia,"Iowan Old Style","Noto Serif KR","Apple SD Gothic Neo","Malgun Gothic",serif;--sans:"Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,BlinkMacSystemFont,sans-serif}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--sans);background:linear-gradient(90deg,rgba(90,62,31,.035) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(0deg,rgba(90,62,31,.032) 1px,transparent 1px) 0 0/28px 28px,radial-gradient(circle at 15% 6%,rgba(170,91,46,.12),transparent 34%),radial-gradient(circle at 92% 18%,rgba(45,111,88,.09),transparent 28%),var(--paper);text-rendering:optimizeLegibility}a{color:inherit}.shell{display:grid;grid-template-columns:minmax(260px,310px) minmax(0,1fr);min-height:100vh}aside{position:sticky;top:0;height:100vh;padding:26px 20px;color:rgba(255,250,232,.92);background:linear-gradient(180deg,#20271f,#131914);overflow:auto}.brand{display:flex;gap:10px;align-items:center;margin-bottom:20px}.brand-mark{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;color:#172016;background:linear-gradient(135deg,#f7d47a,#88d1a7);font-weight:900}.brand-title{margin:0;font:800 14px/1.2 var(--mono);letter-spacing:.04em;text-transform:uppercase}.brand-sub{margin:2px 0 0;color:rgba(255,250,232,.58);font-size:12px}.nav-label{margin:24px 0 8px;color:rgba(255,250,232,.54);font:800 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.12em}.nav-list{display:grid;gap:8px}.nav-list a{display:block;padding:10px 12px;border-radius:12px;text-decoration:none;color:rgba(255,250,232,.75);font-size:13px;line-height:1.35;border:1px solid transparent}.nav-list a:hover,.nav-list a.active{background:rgba(255,250,232,.1);border-color:rgba(255,250,232,.16);color:#fff}.external-note{margin-top:18px;padding:12px;border-radius:14px;background:rgba(255,250,232,.08);color:rgba(255,250,232,.72);font-size:12px;line-height:1.5}main{padding:44px min(5vw,64px) 70px}.hero{max-width:1100px;margin:0 auto 28px}.crumb{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 12px;color:var(--muted);font:800 12px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase}.hero h1{margin:0;font:800 clamp(34px,6vw,68px)/.98 var(--serif);letter-spacing:-.045em}.hero p{max-width:850px;color:var(--ink-soft);font-size:18px;line-height:1.75}.pill-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.pill{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:var(--radius-pill);background:rgba(255,255,255,.6);border:1px solid rgba(90,62,31,.13);font:800 12px/1 var(--mono);color:var(--ink-soft);text-decoration:none}.section{max-width:1100px;margin:26px auto;padding:26px;border:1px solid rgba(90,62,31,.13);border-radius:var(--radius-lg);background:rgba(255,255,255,.62);box-shadow:var(--shadow);backdrop-filter:blur(9px)}.section-header{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;margin-bottom:18px}.eyebrow{margin:0 0 8px;color:var(--copper);font:900 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}.section h2{margin:0;font:800 28px/1.05 var(--serif);letter-spacing:-.025em}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.card,.source-card,.quiz-card{padding:18px;border-radius:var(--radius-md);background:var(--paper-card);border:1px solid rgba(90,62,31,.12)}.card h3,.source-card h3{margin:0 0 8px;font:800 17px/1.2 var(--sans)}.card p,.source-card p{margin:0;color:var(--ink-soft);line-height:1.65}.source-card a{word-break:break-word;color:var(--blue);font-weight:800}.source-title{font-weight:900;color:var(--ink)}.source-path{font:700 12px/1.4 var(--mono);color:var(--muted);margin:6px 0 10px}.trace{display:grid;gap:12px;counter-reset:step}.trace-step{position:relative;padding:16px 16px 16px 54px;border-radius:16px;background:rgba(255,255,255,.58);border:1px solid rgba(90,62,31,.12);line-height:1.65}.trace-step:before{counter-increment:step;content:counter(step);position:absolute;left:16px;top:16px;width:26px;height:26px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,#f2c66d,#78c79a);font:900 13px/1 var(--mono)}pre{margin:12px 0 0;overflow:auto;border-radius:14px;background:#172016;color:#f8f4df;border:1px solid rgba(0,0,0,.18)}code{font-family:var(--mono)}pre code{display:block;padding:16px 18px;font-size:13px;line-height:1.62;white-space:pre}.sv-keyword{color:#f7d47a;font-weight:800}.sv-type{color:#88d1ff}.sv-uvm{color:#9ee6ad;font-weight:800}.sv-macro{color:#ffb86b}.sv-string{color:#e8a2a2}.sv-number{color:#c7b8ff}.sv-comment{color:#8d9b8a;font-style:italic}.checklist{display:grid;gap:12px}.check-item{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:14px;background:rgba(255,255,255,.56);border:1px solid rgba(90,62,31,.12);line-height:1.55}.check-item input{margin-top:4px;accent-color:var(--green)}.quiz-options{display:grid;gap:10px;margin-top:14px}.quiz-option,.soft-button{cursor:pointer;border:1px solid rgba(90,62,31,.16);background:#fffaf0;border-radius:13px;padding:12px 14px;text-align:left;color:var(--ink);font-weight:800}.quiz-option:hover,.soft-button:hover{border-color:rgba(45,111,88,.35);box-shadow:0 8px 18px rgba(68,45,24,.08)}.quiz-option.correct{background:rgba(83,168,119,.18);border-color:rgba(83,168,119,.45)}.quiz-option.wrong{background:rgba(210,81,81,.13);border-color:rgba(210,81,81,.35)}.feedback{min-height:1.4em;color:var(--ink-soft);font-weight:800}.prompt-box{width:100%;min-height:210px;border:1px solid rgba(90,62,31,.16);border-radius:16px;background:#fffaf0;padding:16px;font:13px/1.58 var(--mono);color:var(--ink);resize:vertical}.footer-note{max-width:1100px;margin:28px auto 0;color:var(--muted);font-size:13px;line-height:1.6}.day-card{display:grid;gap:8px;text-decoration:none}.day-card strong{font-size:17px}.day-card span{color:var(--muted);font:800 11px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase}.day-card p{margin:0;color:var(--ink-soft);line-height:1.55}.module-heading{grid-column:1/-1;margin:18px 0 0;font:900 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--copper)}@media (max-width:900px){.shell{grid-template-columns:1fr}aside{position:relative;height:auto}.grid,.grid.two{grid-template-columns:1fr}main{padding:28px 16px 52px}.section{padding:20px}.section-header{display:block}.hero h1{font-size:38px}}</style></head><body data-storage-key="chipverify-uvm-day2-v1"><div class="shell"><aside><div class="brand"><div class="brand-mark">CV</div><div><p class="brand-title">ChipVerify UVM</p><p class="brand-sub">Korean workbook</p></div></div><p class="nav-label">curriculum</p><nav class="nav-list"><a href="index.html">Index. ChipVerify UVM course</a>
+<a class="" href="day0_chipverify_uvm_orientation.html">Day 0. ChipVerify UVM course orientation</a>
+<a class="" href="day1_uvm_overview_ovm_to_uvm.html">Day 1. UVM overview: OVM에서 UVM까지</a>
+<a class="active" href="day2_installation_hello_uvm.html">Day 2. UVM installation and Hello UVM</a>
+<a class="" href="day3_base_classes_root_object_component.html">Day 3. Base classes: object vs component</a>
+<a class="" href="day4_uvm_object_lifecycle_utilities.html">Day 4. uvm_object lifecycle and utilities</a>
+<a class="" href="day5_uvm_component_testbench_top.html">Day 5. uvm_component hierarchy and phases preview</a>
+<a class="" href="day6_environment_and_agent.html">Day 6. Environment and agent composition</a>
+<a class="" href="day7_driver_monitor_subscriber.html">Day 7. Driver, monitor, subscriber</a>
+<a class="" href="day8_sequencer_and_scoreboard.html">Day 8. Sequencer and scoreboard</a>
+<a class="" href="day9_uvm_phases.html">Day 9. UVM phases</a>
+<a class="" href="day10_objection_and_custom_phase.html">Day 10. Objection and user-defined phases</a>
+<a class="" href="day11_sequence_basics.html">Day 11. Sequence basics</a>
+<a class="" href="day12_sequence_start_and_macros.html">Day 12. Starting sequences and macros</a>
+<a class="" href="day13_virtual_sequence_and_arbitration.html">Day 13. Virtual sequence, virtual sequencer, sequence library</a>
+<a class="" href="day14_transaction_and_driver_handshake.html">Day 14. Transaction object and driver handshake</a>
+<a class="" href="day15_tlm_blocking_put_get.html">Day 15. TLM overview and blocking put/get</a>
+<a class="" href="day16_tlm_fifo_and_example.html">Day 16. TLM FIFO and example</a>
+<a class="" href="day17_analysis_port_and_nonblocking_tlm.html">Day 17. Analysis port, sockets, nonblocking TLM</a>
+<a class="" href="day18_factory_override.html">Day 18. Factory override</a>
+<a class="" href="day19_configure_components_and_config_db.html">Day 19. Configure components and config_db</a>
+<a class="" href="day20_resource_database.html">Day 20. Resource database</a>
+<a class="" href="day21_ral_overview_and_model_classes.html">Day 21. RAL overview and register model classes</a>
+<a class="" href="day22_register_environment_connection.html">Day 22. Register environment and connection</a>
+<a class="" href="day23_ral_backdoor_and_example.html">Day 23. Backdoor access and register model example</a>
+<a class="" href="day24_reporting_printer_comparer.html">Day 24. Reporting and printer/comparer policy</a>
+<a class="" href="day25_callback_and_events.html">Day 25. Callback and events</a>
+<a class="" href="day26_macros_hdl_access_singleton.html">Day 26. Utility and field macros, HDL access, singleton</a>
+<a class="" href="day27_reusable_verification_components.html">Day 27. Reusable verification components</a>
+<a class="" href="day28_full_verification_testbench_example.html">Day 28. Full verification testbench example</a>
+<a class="" href="day29_testbench_examples_comparison.html">Day 29. Testbench examples 1 and 2</a>
+<a class="" href="day30_interview_review_and_next_steps.html">Day 30. Interview review and next steps</a></nav><div class="external-note">원문은 ChipVerify 링크에서 확인하고, 이 HTML은 한국어 학습 흐름과 직접 작성한 mini example만 제공합니다.</div></aside><main><section class="hero"><p class="crumb"><span>Module A</span><span>·</span><span>Orientation and first UVM run</span></p><h1>Day 2. UVM installation and Hello UVM</h1><p>`import uvm_pkg::*`, `include &quot;uvm_macros.svh&quot;`, `run_test()`의 최소 실행 흐름을 이해한다.</p><div class="pill-row"><span class="pill">완료 기준: top module에서 UVM test class로 제어가 넘어가는 최소 흐름을 그릴 수 있다.</span><span class="pill">Source count: 2</span><span class="pill">예상 45~70분</span></div></section>
+<section class="section"><div class="section-header"><div><p class="eyebrow">source map</p><h2>오늘 읽을 ChipVerify 원문</h2></div></div><div class="grid two"><article class="source-card"><h3>UVM Installation</h3><p class="source-path">https://chipverify.com/uvm/uvm-installation</p><p>원문에서 용어 이름, class 이름, 예제 구조를 확인하세요. 이 workbook은 원문을 복제하지 않고 학습 순서와 한국어 설명을 재구성합니다.</p><p style="margin-top:10px"><a href="https://chipverify.com/uvm/uvm-installation" target="_blank" rel="noopener noreferrer">ChipVerify 원문 열기 ↗</a></p></article>
+<article class="source-card"><h3>Hello UVM !</h3><p class="source-path">https://chipverify.com/uvm/uvm-hello-world</p><p>원문에서 용어 이름, class 이름, 예제 구조를 확인하세요. 이 workbook은 원문을 복제하지 않고 학습 순서와 한국어 설명을 재구성합니다.</p><p style="margin-top:10px"><a href="https://chipverify.com/uvm/uvm-hello-world" target="_blank" rel="noopener noreferrer">ChipVerify 원문 열기 ↗</a></p></article></div></section>
+<section class="section"><div class="section-header"><div><p class="eyebrow">mental model</p><h2>먼저 잡을 생각의 틀</h2></div></div><div class="grid"><article class="card"><h3>표준화된 testbench 언어</h3><p>UVM은 특정 프로젝트의 임시 testbench 스타일을 공통 vocabulary와 class library로 정리한 방법론입니다.</p></article>
+<article class="card"><h3>top에서 test로</h3><p>시뮬레이션은 HDL top에서 시작하지만 검증 시나리오의 중심은 UVM test class로 이동합니다.</p></article>
+<article class="card"><h3>원문은 이름 확인용</h3><p>ChipVerify 원문에서는 정확한 class 이름과 API 모양을 확인하고, 이 페이지에서는 왜 그런 구조인지 학습합니다.</p></article></div></section>
+<section class="section"><div class="section-header"><div><p class="eyebrow">reading trace</p><h2>읽는 순서</h2></div></div><div class="trace"><div class="trace-step">먼저 오늘의 source 링크를 열고 제목과 section heading만 훑습니다: UVM Installation, Hello UVM !.</div>
+<div class="trace-step">그 다음 이 페이지의 mental model을 읽고 `UVM installation and Hello UVM`가 전체 UVM testbench에서 차지하는 위치를 표시합니다.</div>
+<div class="trace-step">mini example의 class 이름, phase 이름, port 이름을 원문 용어와 대조합니다.</div>
+<div class="trace-step">마지막으로 quiz와 실습을 풀고, 막히는 지점은 prompt box를 복사해 LLM에게 질문합니다.</div></div></section>
+<section class="section"><div class="section-header"><div><p class="eyebrow">mini example</p><h2>직접 작성한 compact UVM 예제</h2></div></div><article class="source-card"><h3>UVM installation and Hello UVM에서 볼 코드 모양</h3><p>Hello UVM의 핵심은 simulator entry point와 UVM class world가 `run_test()`로 만나는 지점입니다.</p><pre><code class="source-code">import uvm_pkg::*;
+`include &quot;uvm_macros.svh&quot;
+
+module tb_top;
+  initial begin
+    // HDL top에서 UVM test class를 시작한다.
+    run_test(&quot;smoke_test&quot;);
+  end
+endmodule</code></pre></article></section>
+<section class="section"><div class="section-header"><div><p class="eyebrow">source question</p><h2>원문과 대조할 질문</h2></div></div><div class="card"><strong>UVM Installation / Hello UVM !</strong><p style="margin-top:8px">원문에서 class 이름, method 이름, 예제의 역할을 확인한 뒤 “이 API가 전체 testbench flow의 어느 화살표에 놓이는가?”를 질문하세요.</p></div></section>
+<section class="section"><div class="section-header"><div><p class="eyebrow">checkpoint</p><h2>체크리스트</h2></div></div><div class="checklist"><label class="check-item"><input type="checkbox" data-progress="d2-1"><span>UVM installation and Hello UVM의 핵심 class/API 이름을 원문 링크에서 확인했다.</span></label><label class="check-item"><input type="checkbox" data-progress="d2-2"><span>top module에서 UVM test class로 제어가 넘어가는 최소 흐름을 그릴 수 있다.</span></label><label class="check-item"><input type="checkbox" data-progress="d2-3"><span>mini example을 보고 내가 모르는 UVM 용어를 2개 이상 표시했다.</span></label><label class="check-item"><input type="checkbox" data-progress="d2-4"><span>LLM prompt에 내 요약과 질문을 채워 넣을 준비가 됐다.</span></label></div></section>
+<section class="section"><div class="section-header"><div><p class="eyebrow">quiz</p><h2>확인 문제</h2></div></div><article class="quiz-card"><p><strong>Day 2 완료 기준에 가장 가까운 설명은?</strong></p><div class="quiz-options"><button class="quiz-option" type="button" data-correct="true">top module의 `run_test()`가 UVM test class 실행으로 이어진다</button><button class="quiz-option" type="button" data-correct="false">DUT RTL을 먼저 수정해서 UVM 구조를 이해한다</button><button class="quiz-option" type="button" data-correct="false">원문 전체를 외운 뒤에야 다음 Day로 넘어갈 수 있다</button></div><p class="feedback"></p></article></section>
+<section class="section"><div class="section-header"><div><p class="eyebrow">practice</p><h2>작은 실습</h2></div></div><div class="card"><strong>실습 과제</strong><p style="margin-top:8px">Hello UVM 최소 구조를 종이에 그리고, HDL top과 UVM class world가 만나는 화살표에 `run_test()`라고 적어보세요.</p></div></section>
+<section class="section"><div class="section-header"><div><p class="eyebrow">study loop</p><h2>모르면 이렇게 물어보세요</h2></div></div><textarea class="prompt-box" id="promptBox" spellcheck="false">나는 SystemVerilog UVM을 ChipVerify 기반 한국어 workbook으로 공부하고 있어.
+Day 2: UVM installation and Hello UVM
+목표: `import uvm_pkg::*`, `include &quot;uvm_macros.svh&quot;`, `run_test()`의 최소 실행 흐름을 이해한다.
+원문 링크:
+- UVM Installation: https://chipverify.com/uvm/uvm-installation
+- Hello UVM !: https://chipverify.com/uvm/uvm-hello-world
+
+내가 이해한 내용:
+[여기에 내 말로 요약]
+
+헷갈리는 지점:
+[질문]
+
+위 원문 링크의 용어를 기준으로, 초보자 관점에서 다시 설명하고 확인 질문 3개를 내줘. 원문을 그대로 복사하지 말고 개념과 작은 예제로 설명해줘.</textarea><div class="pill-row"><button class="soft-button" type="button" id="copyPrompt">질문 템플릿 복사</button></div></section><div class="pill-row"><a class="pill" href="day1_uvm_overview_ovm_to_uvm.html">← Day 1</a><a class="pill" href="index.html">Index</a><a class="pill" href="day3_base_classes_root_object_component.html">Day 3 →</a></div><p class="footer-note">Generated by project skill: skills/chipverify-uvm-lecture-builder. ChipVerify source URLs are used as attribution and study references; explanations and mini examples are re-authored for this workbook.</p></main></div><script>const storageKey = document.body.dataset.storageKey || "chipverify-uvm-workbook";
+let state = {};
+try { state = JSON.parse(localStorage.getItem(storageKey) || "{}"); } catch (err) { state = {}; }
+function saveState(){ localStorage.setItem(storageKey, JSON.stringify(state)); }
+function escapeHtml(value){ return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;"); }
+const svKeywords = new Set(`always always_comb always_ff automatic begin case class config constraint covergroup coverpoint cross default do else end endcase endclass endfunction endgroup endinterface endmodule endpackage endtask extends extern for forever fork function if import initial interface join localparam logic module new package parameter rand randc return super task typedef virtual void with`.trim().split(/\s+/));
+const svTypes = new Set(`bit byte int integer longint real reg shortint string time uvm_component uvm_object uvm_sequence uvm_sequence_item uvm_test uvm_env uvm_agent uvm_driver uvm_monitor uvm_scoreboard uvm_subscriber uvm_sequencer`.trim().split(/\s+/));
+function highlightSystemVerilog(source){
+  const tokenPattern = /\/\/[^\n]*|\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|`[A-Za-z_][A-Za-z0-9_$]*|(?:\d+)?'[sS]?[bBoOdDhH][0-9a-fA-F_xXzZ?]+|\b\d+(?:\.\d+)?\b|\b[A-Za-z_][$\w]*\b/g;
+  let cursor = 0;
+  let out = "";
+  for (const match of source.matchAll(tokenPattern)) {
+    const token = match[0];
+    out += escapeHtml(source.slice(cursor, match.index));
+    let cls = "";
+    if (token.startsWith("//") || token.startsWith("/*")) cls = "sv-comment";
+    else if (token.startsWith("\"")) cls = "sv-string";
+    else if (token.startsWith("`")) cls = "sv-macro";
+    else if (/^(?:\d+)?'[sS]?[bBoOdDhH]/.test(token) || /^\d/.test(token)) cls = "sv-number";
+    else if (/^(?:uvm_|UVM_)/.test(token)) cls = "sv-uvm";
+    else if (svKeywords.has(token)) cls = "sv-keyword";
+    else if (svTypes.has(token)) cls = "sv-type";
+    out += cls ? `<span class="${cls}">${escapeHtml(token)}</span>` : escapeHtml(token);
+    cursor = match.index + token.length;
+  }
+  out += escapeHtml(source.slice(cursor));
+  return out;
+}
+document.querySelectorAll("code.source-code").forEach((node) => { node.innerHTML = highlightSystemVerilog(node.textContent); });
+document.querySelectorAll("[data-progress]").forEach((box) => {
+  const key = box.dataset.progress;
+  box.checked = Boolean(state[key]);
+  box.addEventListener("change", () => { state[key] = box.checked; saveState(); });
+});
+document.querySelectorAll(".quiz-option").forEach((button) => {
+  button.addEventListener("click", () => {
+    const card = button.closest(".quiz-card");
+    card.querySelectorAll(".quiz-option").forEach((item) => item.classList.remove("correct", "wrong"));
+    const ok = button.dataset.correct === "true";
+    button.classList.add(ok ? "correct" : "wrong");
+    const feedback = card.querySelector(".feedback");
+    feedback.textContent = ok ? "맞아요. 이 답을 기준으로 원문 예제를 다시 확인해보세요." : "아직 아니에요. 위 mental model과 trace를 한 번 더 읽어보세요.";
+  });
+});
+const copyPrompt = document.getElementById("copyPrompt");
+if (copyPrompt) {
+  copyPrompt.addEventListener("click", async () => {
+    const box = document.getElementById("promptBox");
+    try {
+      await navigator.clipboard.writeText(box.value);
+      copyPrompt.textContent = "복사됨";
+      setTimeout(() => { copyPrompt.textContent = "질문 템플릿 복사"; }, 1200);
+    } catch (err) {
+      box.select();
+      document.execCommand("copy");
+    }
+  });
+}</script></body></html>

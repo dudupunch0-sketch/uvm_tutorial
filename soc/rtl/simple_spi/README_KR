@@ -1,0 +1,10 @@
+"Simple SPI" SPI controller RTL
+
+http://opencores.org/project,simple_spi
+
+이 core에는 variable-width slave-select register와 해당 I/O line이 추가되었습니다.
+
+또한 optional boot-up logic이 있으며, reset 시 일련의 bus-command를 전송하여 예를 들어 SPI flash chip을
+read-state로 초기화합니다. 이는 boot time에 SPI-bus chip에서 읽기를 원하는 bootloader code나 FSM에서
+공간을 절약할 수 있습니다. 활성화하려면 'startup_state_reset'을 4'h10으로 Defparam하고,
+자세한 내용은 RTL을 참조하십시오.

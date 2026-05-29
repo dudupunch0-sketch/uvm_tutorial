@@ -1,0 +1,47 @@
+다음은 UVM CONMAX 예제와 함께 제공되는 test 목록입니다.
+
+
+1) wb_conmax_base_test.sv
+	이 test는 이 시리즈의 다른 모든 test를 위한 base test입니다.
+	모든 master/slave가 이 test에서 생성되고, 모든 configuration 정보가
+	이 test에서 설정됩니다. 기본 test는 이 test에서 하나도 enable되어 있지 않다는 점에 유의하십시오.
+
+
+2) wb_conmax_factory_test_1.sv
+		이 test는 몇 가지 type override를 살펴봅니다.
+
+2) wb_conmax_factory_test_2.sv
+		이 test는 instance별 override 몇 가지를 보여줍니다.
+
+
+3) wb_conmax_alter_message_verbosity.sv
+	이 test는 message verbosity를 변경합니다.
+
+4) wb_conmax_flat_sequence.sv
+
+5) wb_conmax_virtual_sequence.sv
+
+6) wb_conmax_multiple_domain_test.sv
+
+
+
+README --> 이 파일입니다.
+wb_conmax_alter_message.sv
+wb_conmax_alter_verbosity.sv
+wb_conmax_base_test.sv
+wb_conmax_commandline_test_1.sv
+wb_conmax_env_tb_mod.sv
+wb_conmax_factory_instance_override_cmdline.sv
+wb_conmax_factory_instance_override.sv
+wb_conmax_factory_type_override.sv
+wb_conmax_factory_type_undo.sv
+wb_conmax_factory_undo_instance.sv
+wb_conmax_factory_undo.sv
+wb_conmax_flat_sequence.sv
+wb_conmax_instance_callback_test.sv
+wb_conmax_parallel_sequence.sv
+wb_conmax_report_file.sv
+wb_conmax_report_hook.sv
+wb_conmax_sequence_config.sv
+wb_conmax_simple_cmdline_proc.sv
+wb_conmax_typewide_callback_test.sv

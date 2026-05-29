@@ -1,0 +1,675 @@
+{
+  "generated_at": "2026-05-26T10:01:48.979383+00:00",
+  "output_dir": "/home/dudupunch0/company/uvm-practical-learning/lectures_chipverify_uvm",
+  "days": [
+    {
+      "day": 0,
+      "module": "A",
+      "module_title": "Orientation and first UVM run",
+      "title": "ChipVerify UVM course orientation",
+      "filename": "day0_chipverify_uvm_orientation.html",
+      "goal": "이 강의 세트의 사용법, 원문 링크를 읽는 법, 기존 repo-grounded 강의와의 차이를 이해한다.",
+      "completion": "ChipVerify 원문은 개념 확인용, 이 workbook은 한국어 학습 루프용이라는 역할 분리를 설명할 수 있다.",
+      "sources": [
+        {
+          "title": "UVM Tutorial",
+          "url": "https://chipverify.com/tutorials/uvm/"
+        }
+      ]
+    },
+    {
+      "day": 1,
+      "module": "A",
+      "module_title": "Orientation and first UVM run",
+      "title": "UVM overview: OVM에서 UVM까지",
+      "filename": "day1_uvm_overview_ovm_to_uvm.html",
+      "goal": "UVM이 왜 생겼고 testbench를 어떤 추상화로 나누는지 이해한다.",
+      "completion": "UVM의 표준화, 재사용성, component/object 분리 목적을 자기 말로 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Tutorial",
+          "url": "https://chipverify.com/tutorials/uvm/"
+        },
+        {
+          "title": "UVM Introduction",
+          "url": "https://chipverify.com/uvm/uvm-introduction"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "module": "A",
+      "module_title": "Orientation and first UVM run",
+      "title": "UVM installation and Hello UVM",
+      "filename": "day2_installation_hello_uvm.html",
+      "goal": "`import uvm_pkg::*`, `include \"uvm_macros.svh\"`, `run_test()`의 최소 실행 흐름을 이해한다.",
+      "completion": "top module에서 UVM test class로 제어가 넘어가는 최소 흐름을 그릴 수 있다.",
+      "sources": [
+        {
+          "title": "UVM Installation",
+          "url": "https://chipverify.com/uvm/uvm-installation"
+        },
+        {
+          "title": "Hello UVM !",
+          "url": "https://chipverify.com/uvm/uvm-hello-world"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "module": "B",
+      "module_title": "Base classes and object/component mental model",
+      "title": "Base classes: object vs component",
+      "filename": "day3_base_classes_root_object_component.html",
+      "goal": "UVM class hierarchy에서 `uvm_root`, `uvm_object`, `uvm_component`의 역할을 구분한다.",
+      "completion": "object는 데이터/정책, component는 testbench 구조/phase 참여자라고 구분한다.",
+      "sources": [
+        {
+          "title": "Base Classes",
+          "url": "https://chipverify.com/uvm/base-classes"
+        },
+        {
+          "title": "UVM Root [uvm_root]",
+          "url": "https://chipverify.com/uvm/uvm-root"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "module": "B",
+      "module_title": "Base classes and object/component mental model",
+      "title": "uvm_object lifecycle and utilities",
+      "filename": "day4_uvm_object_lifecycle_utilities.html",
+      "goal": "transaction 객체가 왜 object 계층에 있고 copy/clone/compare/print/pack이 왜 필요한지 이해한다.",
+      "completion": "transaction debug와 scoreboard 비교에서 object utility가 쓰이는 위치를 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Object [uvm_object]",
+          "url": "https://chipverify.com/uvm/uvm-object"
+        },
+        {
+          "title": "UVM Object Copy/Clone",
+          "url": "https://chipverify.com/uvm/uvm-object-copy-clone"
+        },
+        {
+          "title": "UVM Object Compare",
+          "url": "https://chipverify.com/uvm/uvm-object-compare"
+        },
+        {
+          "title": "UVM Object Print",
+          "url": "https://chipverify.com/uvm/uvm-object-print"
+        },
+        {
+          "title": "UVM Object Pack/Unpack",
+          "url": "https://chipverify.com/uvm/uvm-object-pack-unpack"
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "module": "B",
+      "module_title": "Base classes and object/component mental model",
+      "title": "uvm_component hierarchy and phases preview",
+      "filename": "day5_uvm_component_testbench_top.html",
+      "goal": "component tree, parent/child 관계, testbench top과 test class의 연결을 이해한다.",
+      "completion": "`type_id::create(name, parent)`가 component hierarchy를 만드는 의미를 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Component [uvm_component]",
+          "url": "https://chipverify.com/uvm/uvm-component"
+        },
+        {
+          "title": "UVM Testbench Top",
+          "url": "https://chipverify.com/uvm/uvm-testbench-top"
+        },
+        {
+          "title": "UVM Test [uvm_test]",
+          "url": "https://chipverify.com/uvm/uvm-test"
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "module": "C",
+      "module_title": "Testbench components",
+      "title": "Environment and agent composition",
+      "filename": "day6_environment_and_agent.html",
+      "goal": "env와 agent가 reusable verification component를 구성하는 방법을 이해한다.",
+      "completion": "env는 여러 agent/scoreboard/coverage를 묶고, agent는 protocol 단위 부품임을 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Environment [uvm_env]",
+          "url": "https://chipverify.com/uvm/uvm-environment"
+        },
+        {
+          "title": "UVM Agent | uvm_agent",
+          "url": "https://chipverify.com/uvm/uvm-agent"
+        }
+      ]
+    },
+    {
+      "day": 7,
+      "module": "C",
+      "module_title": "Testbench components",
+      "title": "Driver, monitor, subscriber",
+      "filename": "day7_driver_monitor_subscriber.html",
+      "goal": "active stimulus path와 passive observation path를 구분한다.",
+      "completion": "driver는 핀을 구동하고 monitor/subscriber는 관찰/소비한다는 차이를 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Driver [uvm_driver]",
+          "url": "https://chipverify.com/uvm/uvm-driver"
+        },
+        {
+          "title": "UVM Monitor [uvm_monitor]",
+          "url": "https://chipverify.com/uvm/uvm-monitor"
+        },
+        {
+          "title": "Subscriber [uvm_subscriber]",
+          "url": "https://chipverify.com/uvm/uvm-subscriber"
+        }
+      ]
+    },
+    {
+      "day": 8,
+      "module": "C",
+      "module_title": "Testbench components",
+      "title": "Sequencer and scoreboard",
+      "filename": "day8_sequencer_and_scoreboard.html",
+      "goal": "sequencer가 sequence와 driver 사이에서 하는 일, scoreboard가 expected/actual을 비교하는 위치를 이해한다.",
+      "completion": "stimulus path와 checking path를 한 장의 그림으로 나눠 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Sequencer [uvm_sequencer]",
+          "url": "https://chipverify.com/uvm/uvm-sequencer"
+        },
+        {
+          "title": "UVM Scoreboard",
+          "url": "https://chipverify.com/uvm/uvm-scoreboard"
+        }
+      ]
+    },
+    {
+      "day": 9,
+      "module": "D",
+      "module_title": "Phases and simulation lifetime",
+      "title": "UVM phases",
+      "filename": "day9_uvm_phases.html",
+      "goal": "build/connect/end_of_elaboration/start_of_simulation/run/extract/check/report/final phase의 의도를 구분한다.",
+      "completion": "각 phase에 어떤 일을 넣고 어떤 일을 넣지 말아야 하는지 판단한다.",
+      "sources": [
+        {
+          "title": "UVM Phases",
+          "url": "https://chipverify.com/uvm/uvm-phases"
+        }
+      ]
+    },
+    {
+      "day": 10,
+      "module": "D",
+      "module_title": "Phases and simulation lifetime",
+      "title": "Objection and user-defined phases",
+      "filename": "day10_objection_and_custom_phase.html",
+      "goal": "run phase가 언제 끝나는지, objection이 왜 필요한지 이해한다.",
+      "completion": "raise/drop objection이 simulation lifetime을 제어하는 방식을 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Objection",
+          "url": "https://chipverify.com/uvm/uvm-objection"
+        },
+        {
+          "title": "Creating user-defined phases",
+          "url": "https://chipverify.com/uvm/uvm-user-defined-phase"
+        }
+      ]
+    },
+    {
+      "day": 11,
+      "module": "E",
+      "module_title": "Sequences and stimulus generation",
+      "title": "Sequence basics",
+      "filename": "day11_sequence_basics.html",
+      "goal": "`uvm_sequence`, sequence item, `body()`의 기본 구조를 이해한다.",
+      "completion": "sequence가 transaction을 만들고 sequencer/driver로 전달되는 흐름을 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Sequence [uvm_sequence]",
+          "url": "https://chipverify.com/uvm/uvm-sequence"
+        },
+        {
+          "title": "How to create and use a sequence",
+          "url": "https://chipverify.com/uvm/how-to-create-and-use-a-sequence"
+        }
+      ]
+    },
+    {
+      "day": 12,
+      "module": "E",
+      "module_title": "Sequences and stimulus generation",
+      "title": "Starting sequences and macros",
+      "filename": "day12_sequence_start_and_macros.html",
+      "goal": "`start()`와 `uvm_do` 계열 macro의 차이를 이해하고 macro 사용의 장단점을 판단한다.",
+      "completion": "명시적 `start()` 흐름과 macro 기반 흐름의 가독성/제어성 차이를 말한다.",
+      "sources": [
+        {
+          "title": "How to execute sequences via start()",
+          "url": "https://chipverify.com/uvm/how-to-execute-sequences-via-start-method"
+        },
+        {
+          "title": "Executing sequence macros",
+          "url": "https://chipverify.com/uvm/how-to-execute-sequences-via-uvm-do-macros"
+        },
+        {
+          "title": "How to use `uvm_do sequence macros ?",
+          "url": "https://chipverify.com/uvm/uvm-do-macros"
+        },
+        {
+          "title": "Sequence action macros for pre-existing items",
+          "url": "https://chipverify.com/uvm/sequence-action-macros-for-pre-existing-items"
+        }
+      ]
+    },
+    {
+      "day": 13,
+      "module": "E",
+      "module_title": "Sequences and stimulus generation",
+      "title": "Virtual sequence, virtual sequencer, sequence library",
+      "filename": "day13_virtual_sequence_and_arbitration.html",
+      "goal": "multi-agent coordination과 arbitration 개념을 이해한다.",
+      "completion": "virtual sequence가 여러 sequencer를 동시에 조율하는 상황을 예로 든다.",
+      "sources": [
+        {
+          "title": "UVM Virtual Sequence",
+          "url": "https://chipverify.com/uvm/uvm-virtual-sequence"
+        },
+        {
+          "title": "UVM Virtual Sequencer",
+          "url": "https://chipverify.com/uvm/uvm-virtual-sequencer"
+        },
+        {
+          "title": "UVM Sequence Library",
+          "url": "https://chipverify.com/uvm/uvm-sequence-library"
+        },
+        {
+          "title": "UVM Sequence Arbitration",
+          "url": "https://chipverify.com/uvm/uvm-sequence-arbitration"
+        }
+      ]
+    },
+    {
+      "day": 14,
+      "module": "E",
+      "module_title": "Sequences and stimulus generation",
+      "title": "Transaction object and driver handshake",
+      "filename": "day14_transaction_and_driver_handshake.html",
+      "goal": "sequence item이 driver까지 전달되는 handshake model을 이해한다.",
+      "completion": "`get_next_item()`/`item_done()` 또는 get/put 모델을 구분한다.",
+      "sources": [
+        {
+          "title": "Transaction Object",
+          "url": "https://chipverify.com/uvm/uvm-transaction-object"
+        },
+        {
+          "title": "Using get_next_item()",
+          "url": "https://chipverify.com/uvm/uvm-using-get-next-item"
+        },
+        {
+          "title": "Using get() and put()",
+          "url": "https://chipverify.com/uvm/driver-using-get-and-put"
+        }
+      ]
+    },
+    {
+      "day": 15,
+      "module": "F",
+      "module_title": "TLM communication",
+      "title": "TLM overview and blocking put/get",
+      "filename": "day15_tlm_blocking_put_get.html",
+      "goal": "port/export/imp, blocking put/get의 mental model을 만든다.",
+      "completion": "TLM connection을 function/task call의 방향성과 blocking 여부로 설명한다.",
+      "sources": [
+        {
+          "title": "UVM TLM",
+          "url": "https://chipverify.com/uvm/uvm-tlm"
+        },
+        {
+          "title": "UVM TLM Blocking Put Port",
+          "url": "https://chipverify.com/uvm/uvm-tlm-blocking-put-port"
+        },
+        {
+          "title": "UVM TLM Blocking Get Port",
+          "url": "https://chipverify.com/uvm/uvm-tlm-blocking-get-port"
+        }
+      ]
+    },
+    {
+      "day": 16,
+      "module": "F",
+      "module_title": "TLM communication",
+      "title": "TLM FIFO and example",
+      "filename": "day16_tlm_fifo_and_example.html",
+      "goal": "FIFO가 producer/consumer를 느슨하게 연결하는 방법을 이해한다.",
+      "completion": "producer와 consumer 속도가 다를 때 FIFO가 coupling을 줄이는 이유를 설명한다.",
+      "sources": [
+        {
+          "title": "UVM TLM Fifo [uvm_tlm_fifo]",
+          "url": "https://chipverify.com/uvm/uvm-tlm-fifo"
+        },
+        {
+          "title": "UVM TLM Example",
+          "url": "https://chipverify.com/uvm/uvm-tlm-example"
+        }
+      ]
+    },
+    {
+      "day": 17,
+      "module": "F",
+      "module_title": "TLM communication",
+      "title": "Analysis port, sockets, nonblocking TLM",
+      "filename": "day17_analysis_port_and_nonblocking_tlm.html",
+      "goal": "monitor에서 scoreboard/coverage로 fanout하는 analysis path와 nonblocking TLM 차이를 이해한다.",
+      "completion": "analysis port의 one-to-many fanout과 nonblocking try/can 호출을 구분한다.",
+      "sources": [
+        {
+          "title": "UVM TLM Analysis Port",
+          "url": "https://chipverify.com/uvm/uvm-tlm-analysis-port"
+        },
+        {
+          "title": "UVM TLM Sockets",
+          "url": "https://chipverify.com/uvm/uvm-tlm-sockets"
+        },
+        {
+          "title": "Using _decl macro in TLM",
+          "url": "https://chipverify.com/uvm/using-decl-macro-in-tlm"
+        },
+        {
+          "title": "UVM TLM Nonblocking Put Port",
+          "url": "https://chipverify.com/uvm/uvm-tlm-nonblocking-put-port"
+        },
+        {
+          "title": "UVM TLM Port to Export to Imp",
+          "url": "https://chipverify.com/uvm/uvm-tlm-port-export-imp"
+        },
+        {
+          "title": "UVM TLM Non-blocking Get Port",
+          "url": "https://chipverify.com/uvm/uvm-tlm-nonblocking-get-port"
+        }
+      ]
+    },
+    {
+      "day": 18,
+      "module": "G",
+      "module_title": "Configuration, factory, resource DB",
+      "title": "Factory override",
+      "filename": "day18_factory_override.html",
+      "goal": "source를 수정하지 않고 test에서 type/instance override하는 이유를 이해한다.",
+      "completion": "factory registration과 override가 test variation을 만드는 과정을 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Factory Override",
+          "url": "https://chipverify.com/uvm/uvm-factory-override"
+        }
+      ]
+    },
+    {
+      "day": 19,
+      "module": "G",
+      "module_title": "Configuration, factory, resource DB",
+      "title": "Configure components and config_db",
+      "filename": "day19_configure_components_and_config_db.html",
+      "goal": "interface handle, knobs, env settings를 config_db로 전달하는 흐름을 이해한다.",
+      "completion": "set/get의 scope string과 type parameter가 맞아야 하는 이유를 설명한다.",
+      "sources": [
+        {
+          "title": "Configure Components",
+          "url": "https://chipverify.com/uvm/configure-components"
+        },
+        {
+          "title": "UVM config database",
+          "url": "https://chipverify.com/uvm/uvm-config-db"
+        },
+        {
+          "title": "uvm_config_db Examples",
+          "url": "https://chipverify.com/uvm/uvm-config-db-examples"
+        }
+      ]
+    },
+    {
+      "day": 20,
+      "module": "G",
+      "module_title": "Configuration, factory, resource DB",
+      "title": "Resource database",
+      "filename": "day20_resource_database.html",
+      "goal": "config_db와 resource DB의 관계와 beginner가 피해야 할 남용 패턴을 이해한다.",
+      "completion": "resource DB가 강력하지만 추적성이 떨어질 수 있는 이유를 말한다.",
+      "sources": [
+        {
+          "title": "Understanding the resource database",
+          "url": "https://chipverify.com/uvm/understanding-the-resource-database"
+        }
+      ]
+    },
+    {
+      "day": 21,
+      "module": "H",
+      "module_title": "RAL and register verification",
+      "title": "RAL overview and register model classes",
+      "filename": "day21_ral_overview_and_model_classes.html",
+      "goal": "register abstraction layer가 bus transaction과 register intent를 분리하는 이유를 이해한다.",
+      "completion": "reg/block/field/map이 어떤 추상화인지 구분한다.",
+      "sources": [
+        {
+          "title": "UVM Register Abstraction Layer",
+          "url": "https://chipverify.com/uvm/uvm-register-layer"
+        },
+        {
+          "title": "UVM Register Model Classes",
+          "url": "https://chipverify.com/uvm/uvm-register-model"
+        }
+      ]
+    },
+    {
+      "day": 22,
+      "module": "H",
+      "module_title": "RAL and register verification",
+      "title": "Register environment and connection",
+      "filename": "day22_register_environment_connection.html",
+      "goal": "adapter, predictor, sequencer 연결 흐름을 이해한다.",
+      "completion": "register operation이 bus sequence item으로 변환되고 mirror가 업데이트되는 경로를 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Register Environment",
+          "url": "https://chipverify.com/uvm/uvm-register-environment"
+        },
+        {
+          "title": "Connecting register env",
+          "url": "https://chipverify.com/uvm/connecting-register-env"
+        }
+      ]
+    },
+    {
+      "day": 23,
+      "module": "H",
+      "module_title": "RAL and register verification",
+      "title": "Backdoor access and register model example",
+      "filename": "day23_ral_backdoor_and_example.html",
+      "goal": "frontdoor/backdoor의 차이와 RAL example의 전체 실행 흐름을 이해한다.",
+      "completion": "frontdoor는 bus를 타고 backdoor는 HDL path로 직접 접근한다는 차이를 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Register Backdoor Access",
+          "url": "https://chipverify.com/uvm/uvm-register-backdoor-access"
+        },
+        {
+          "title": "UVM Register Model Example",
+          "url": "https://chipverify.com/uvm/uvm-register-model-example"
+        }
+      ]
+    },
+    {
+      "day": 24,
+      "module": "I",
+      "module_title": "Reporting, callbacks, events, macros",
+      "title": "Reporting and printer/comparer policy",
+      "filename": "day24_reporting_printer_comparer.html",
+      "goal": "report verbosity/severity, object print/compare policy를 debugging 도구로 이해한다.",
+      "completion": "정보 메시지와 fatal/error/warning, printer/comparer policy의 역할을 구분한다.",
+      "sources": [
+        {
+          "title": "Reporting Classes",
+          "url": "https://chipverify.com/uvm/reporting-classes"
+        },
+        {
+          "title": "Reporting Functions",
+          "url": "https://chipverify.com/uvm/report-functions"
+        },
+        {
+          "title": "How to use uvm_printer",
+          "url": "https://chipverify.com/uvm/uvm-printer"
+        },
+        {
+          "title": "Setting policy using uvm_comparer",
+          "url": "https://chipverify.com/uvm/uvm-comparer"
+        }
+      ]
+    },
+    {
+      "day": 25,
+      "module": "I",
+      "module_title": "Reporting, callbacks, events, macros",
+      "title": "Callback and events",
+      "filename": "day25_callback_and_events.html",
+      "goal": "callback과 event를 통해 component를 직접 수정하지 않고 hook을 추가하는 방식을 이해한다.",
+      "completion": "callback은 동작 확장 hook, event는 시간적 동기화 도구라고 구분한다.",
+      "sources": [
+        {
+          "title": "UVM Callback",
+          "url": "https://chipverify.com/uvm/uvm-callback"
+        },
+        {
+          "title": "UVM Event",
+          "url": "https://chipverify.com/uvm/uvm-event"
+        },
+        {
+          "title": "UVM Event Pool",
+          "url": "https://chipverify.com/uvm/uvm-event-pool"
+        }
+      ]
+    },
+    {
+      "day": 26,
+      "module": "I",
+      "module_title": "Reporting, callbacks, events, macros",
+      "title": "Utility and field macros, HDL access, singleton",
+      "filename": "day26_macros_hdl_access_singleton.html",
+      "goal": "macro 자동화의 편의성과 숨겨지는 비용, HDL access routine의 사용 경계를 이해한다.",
+      "completion": "field macro, utility macro, HDL access, singleton의 사용 목적과 남용 위험을 설명한다.",
+      "sources": [
+        {
+          "title": "UVM utility & field macros",
+          "url": "https://chipverify.com/uvm/uvm-utility-field-macros"
+        },
+        {
+          "title": "UVM Field Macros",
+          "url": "https://chipverify.com/uvm/uvm-field-macros"
+        },
+        {
+          "title": "HDL access routines",
+          "url": "https://chipverify.com/uvm/uvm-hdl-access-routines"
+        },
+        {
+          "title": "UVM Singleton Object",
+          "url": "https://chipverify.com/uvm/uvm-singleton-object"
+        }
+      ]
+    },
+    {
+      "day": 27,
+      "module": "J",
+      "module_title": "Reuse, examples, review",
+      "title": "Reusable verification components",
+      "filename": "day27_reusable_verification_components.html",
+      "goal": "reusable VIP를 설계/사용할 때의 boundary, config, sequence strategy를 이해한다.",
+      "completion": "reusable VC가 protocol knowledge를 캡슐화하고 top env가 policy를 주입하는 구조를 설명한다.",
+      "sources": [
+        {
+          "title": "Guide - Developing Reusable Verification Components",
+          "url": "https://chipverify.com/uvm/reusable-verification-components"
+        },
+        {
+          "title": "Guide - Using Verification Components",
+          "url": "https://chipverify.com/uvm/verification-components"
+        }
+      ]
+    },
+    {
+      "day": 28,
+      "module": "J",
+      "module_title": "Reuse, examples, review",
+      "title": "Full verification testbench example",
+      "filename": "day28_full_verification_testbench_example.html",
+      "goal": "지금까지 배운 component, phase, sequence, TLM, scoreboard가 한 testbench에서 어떻게 연결되는지 trace한다.",
+      "completion": "full example을 top→test→env→agent→driver/monitor→scoreboard 순서로 설명한다.",
+      "sources": [
+        {
+          "title": "UVM Verification Testbench Example",
+          "url": "https://chipverify.com/uvm/uvm-verification-testbench-example"
+        }
+      ]
+    },
+    {
+      "day": 29,
+      "module": "J",
+      "module_title": "Reuse, examples, review",
+      "title": "Testbench examples 1 and 2",
+      "filename": "day29_testbench_examples_comparison.html",
+      "goal": "예제 간 구조 차이를 비교하고 직접 확장할 지점을 찾는다.",
+      "completion": "두 예제를 component 구성, sequence 흐름, checking 방식으로 비교한다.",
+      "sources": [
+        {
+          "title": "UVM Testbench Example 1",
+          "url": "https://chipverify.com/uvm/uvm-testbench-example-1"
+        },
+        {
+          "title": "UVM Testbench Example 2",
+          "url": "https://chipverify.com/uvm/uvm-testbench-example-2"
+        }
+      ]
+    },
+    {
+      "day": 30,
+      "module": "J",
+      "module_title": "Reuse, examples, review",
+      "title": "Interview review and next steps",
+      "filename": "day30_interview_review_and_next_steps.html",
+      "goal": "핵심 개념을 interview-style 질문으로 복습하고 Accellera UVM reference로 넘어갈 준비를 한다.",
+      "completion": "object/component/phase/sequence/TLM/config/RAL을 질문-답변 형태로 빠르게 복습한다.",
+      "sources": [
+        {
+          "title": "UVM Interview Questions Set 1",
+          "url": "https://chipverify.com/uvm/uvm-interview-questions-set-1"
+        },
+        {
+          "title": "UVM Interview Questions Set 2",
+          "url": "https://chipverify.com/uvm/uvm-interview-questions-set-2"
+        },
+        {
+          "title": "UVM Interview Questions Set 3",
+          "url": "https://chipverify.com/uvm/uvm-interview-questions-set-3"
+        },
+        {
+          "title": "UVM Interview Questions Set 4",
+          "url": "https://chipverify.com/uvm/uvm-interview-questions-set-4"
+        },
+        {
+          "title": "UVM Reference",
+          "url": "https://chipverify.com/uvm-reference"
+        },
+        {
+          "title": "Accellera UVM standards",
+          "url": "https://www.accellera.org/downloads/standards/uvm"
+        }
+      ]
+    }
+  ]
+}

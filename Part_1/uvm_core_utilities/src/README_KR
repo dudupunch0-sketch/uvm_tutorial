@@ -1,0 +1,32 @@
+Chapter 2의 listing에는 초기 check in 당시 몇 가지 사소한 오류가 있었습니다.
+이 파일들에 대해 올바른 source를 업로드했습니다. repository를 업데이트해 주세요.
+
+copy와 compare에 대해서만 run script를 제공했다는 점을 참고하세요. 나머지는 설명 없이도 이해할 수 있을 것이며,
+compiler 옵션에 익숙해질 기회를 줄 것입니다 -:)
+
+
+다음 파일들의 이름은 그 자체로 설명적입니다. 책의 listing과 일치해야 합니다.
+listing_2.1.sv
+listing_2.10
+listing_2.10.sv
+listing_2.2.sv
+
+아래에 나열된 파일들의 이름을 바꿀 수도 있었습니다. 하지만 일부는 컴파일하기 쉽도록 여러 파일을 조합한 것입니다.
+그래서 그대로 두기로 했습니다. 이를 깔끔하게 처리하는 방법에 대한 제안이 있다면 알려 주세요. GitHub를 업데이트하겠습니다.
+
+
+clone.sv      -- Listing 2.6
+compare_ex.sv  -- 이것은 Listing 2.7입니다
+copy.sv        -- 이것은 Listing 2.1, listing 2.2 및 Listing 2.4의 조합입니다.
+copy_ex.sv     -- 이것은 실행할 수 있도록 Listing 2.1 및 Listing 2.2와 함께 구성한 Listing 2.5입니다..
+copy_obj.sv    --- 이것은 실행할 수 있도록 Listing 2.1 및 Listing 2.2와 함께 구성한 Listing 2.5입니다..
+new_packer.sv  -- Listing 2.11
+compare2.sv    -- 이것은 compare operation을 위한 완전한 예제입니다
+print.sv -- Listing 2.9
+completed_class.sv   -- Listing 2.12
+
+문제를 발견하면 제가 수정할 수 있도록 간단히 알려 주시면 감사하겠습니다. 데이터베이스는 이제 7K개가 넘는 파일로 구성되어 있으며,
+버그가 있다면 대부분 제가 부주의하게 저질렀을 수 있는 copy-paste/move 오류 때문일 가능성이 큽니다.
+
+감사합니다
+Srivatsa

@@ -1,0 +1,5 @@
+i2c master 및 slave
+
+이 core는 OpenCores.org의 Richard Herveille가 작성한 i2c master를 기반으로 하며,
+ORSoC가 slave capability를 추가했습니다. core 사용에 대한 자세한 내용은 sw/drivers의
+드라이버 software를 참조하십시오.

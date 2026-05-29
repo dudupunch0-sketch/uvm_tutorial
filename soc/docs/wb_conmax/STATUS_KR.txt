@@ -1,0 +1,24 @@
+이 파일은 check in된 HDL code의 현재 상태를 설명합니다.
+DMA core에 관한 모든 bug/comment/suggestion은 다음으로 보내 주십시오:
+cores@opencores.org
+
+도움 필요
+---------
+core 검증을 도와주실 분을 찾고 있습니다. 도움을 줄 수 있다고 생각하시면,
+list 또는 저에게 직접 email을 보내 주십시오.
+제가 test bench와 몇 개의 test를 작성했지만, 다른 분도 core를 검증해 주시면
+더 좋겠습니다.
+
+
+STATUS
+======
+
+Second Release (Oct. 3, 2002)
+-----------------------------
+- core의 작은 bug를 수정했습니다
+- Spec.의 typo 두 개를 수정했습니다.
+
+Initial Release (10/19/2001)
+---------------------------
+- 알려진 문제 없음
+- 더 많은 testing이 필요합니다!

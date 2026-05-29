@@ -1,0 +1,1532 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 0, UVM repo orientation</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: oklch(96% 0.018 86);
+      --paper-deep: oklch(92% 0.028 82);
+      --paper-card: oklch(98% 0.014 88);
+      --ink: oklch(21% 0.026 74);
+      --ink-soft: oklch(39% 0.04 72);
+      --muted: oklch(56% 0.035 77);
+      --rule: oklch(78% 0.05 80);
+      --rule-soft: oklch(86% 0.045 82);
+      --copper: oklch(55% 0.12 52);
+      --green: oklch(47% 0.11 158);
+      --blueprint: oklch(43% 0.09 230);
+      --danger: oklch(50% 0.15 28);
+      --shadow: 0 24px 60px rgba(68, 45, 24, 0.12), 0 4px 14px rgba(68, 45, 24, 0.08);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --radius-pill: 999px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --serif: Georgia, "Iowan Old Style", "Noto Serif KR", "Apple SD Gothic Neo", "Malgun Gothic", serif;
+      --sans: "Apple SD Gothic Neo", "Malgun Gothic", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: var(--sans);
+      background:
+        linear-gradient(90deg, rgba(90, 62, 31, 0.035) 1px, transparent 1px) 0 0 / 28px 28px,
+        linear-gradient(0deg, rgba(90, 62, 31, 0.032) 1px, transparent 1px) 0 0 / 28px 28px,
+        radial-gradient(circle at 15% 6%, rgba(170, 91, 46, 0.12), transparent 34%),
+        radial-gradient(circle at 92% 18%, rgba(45, 111, 88, 0.09), transparent 28%),
+        var(--paper);
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; }
+
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 100;
+      transform: translateY(-140%);
+      padding: 10px 14px;
+      border-radius: var(--radius-pill);
+      color: var(--paper-card);
+      background: var(--ink);
+      text-decoration: none;
+      transition: transform 160ms cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .shell {
+      display: grid;
+      grid-template-columns: minmax(260px, 310px) minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 24px 18px;
+      border-right: 1px solid rgba(92, 64, 38, 0.18);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.42), rgba(255,255,255,0.08)),
+        rgba(239, 224, 190, 0.54);
+      box-shadow: 8px 0 24px rgba(75, 53, 33, 0.06);
+      overflow: auto;
+    }
+
+    .brand {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stamp {
+      width: fit-content;
+      padding: 7px 10px 6px;
+      border: 1px solid rgba(128, 70, 37, 0.34);
+      border-radius: var(--radius-sm);
+      color: var(--copper);
+      font: 700 12px/1 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transform: rotate(-1.2deg);
+      background: rgba(255, 247, 225, 0.54);
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--serif);
+      text-wrap: balance;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(42px, 6vw, 82px);
+      line-height: 0.95;
+      letter-spacing: -0.026em;
+    }
+
+    h2 {
+      font-size: clamp(28px, 3.6vw, 46px);
+      line-height: 1.02;
+      letter-spacing: -0.022em;
+    }
+
+    h3 {
+      font-size: 22px;
+      line-height: 1.18;
+      letter-spacing: -0.012em;
+    }
+
+    p, li {
+      color: var(--ink-soft);
+      line-height: 1.72;
+      text-wrap: pretty;
+    }
+
+    .brand-title {
+      font: 700 16px/1.3 var(--mono);
+      letter-spacing: -0.012em;
+    }
+
+    .brand-sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .progress-panel {
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 250, 236, 0.62);
+      box-shadow: inset 0 0 0 1px rgba(110, 78, 43, 0.14);
+    }
+
+    .progress-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      font: 700 12px/1 var(--mono);
+      color: var(--ink);
+    }
+
+    .meter {
+      height: 12px;
+      overflow: hidden;
+      border-radius: var(--radius-pill);
+      background: rgba(93, 67, 39, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(93, 67, 39, 0.1);
+    }
+
+    .meter span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), var(--copper));
+      transition: width 260ms cubic-bezier(0.16,1,0.3,1);
+    }
+
+    nav {
+      display: grid;
+      gap: 7px;
+      margin-top: 22px;
+    }
+
+    nav a {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 40px;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      color: var(--ink-soft);
+      font-size: 14px;
+      text-decoration: none;
+      transition: transform 140ms cubic-bezier(0.16,1,0.3,1), background 140ms cubic-bezier(0.16,1,0.3,1), color 140ms cubic-bezier(0.16,1,0.3,1);
+    }
+
+    nav a::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rule);
+      box-shadow: 0 0 0 4px rgba(122, 84, 48, 0.08);
+    }
+
+    @media (hover:hover) {
+      nav a:hover, .soft-button:hover, .repo-node:hover, .quiz-option:hover {
+        transform: translateY(-1px);
+      }
+      nav a:hover {
+        color: var(--ink);
+        background: rgba(255, 251, 241, 0.72);
+      }
+    }
+
+    nav a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 3px solid rgba(66, 122, 99, 0.35);
+      outline-offset: 3px;
+    }
+
+    .reset {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    main {
+      position: relative;
+      padding: 34px clamp(18px, 4vw, 60px) 70px;
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      gap: 24px;
+      padding: clamp(28px, 5vw, 56px);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.72), rgba(255, 245, 219, 0.42)),
+        var(--paper-card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 24px auto auto 24px;
+      width: min(46vw, 560px);
+      height: 180px;
+      border-top: 2px solid rgba(64, 108, 91, 0.2);
+      border-right: 2px solid rgba(64, 108, 91, 0.16);
+      border-radius: 0 34px 0 0;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+      gap: 28px;
+      align-items: end;
+    }
+
+    .lead {
+      max-width: 68ch;
+      margin: 0;
+      font-size: 18px;
+      color: var(--ink-soft);
+    }
+
+    .hero-note {
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: rgba(24, 30, 25, 0.88);
+      color: rgba(255, 250, 232, 0.88);
+      font: 500 13px/1.65 var(--mono);
+      box-shadow: 0 18px 40px rgba(24, 30, 25, 0.2);
+    }
+
+    .hero-note strong { color: oklch(87% 0.11 84); }
+
+    .section {
+      margin-top: 26px;
+      padding: clamp(22px, 4vw, 38px);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 250, 236, 0.62);
+      box-shadow: inset 0 0 0 1px rgba(110, 78, 43, 0.12), 0 14px 36px rgba(68, 45, 24, 0.07);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--copper);
+      font: 800 12px/1 var(--mono);
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .card {
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.42);
+      box-shadow: 0 1px 3px rgba(68,45,24,0.10), inset 0 0 0 1px rgba(107, 78, 42, 0.08);
+    }
+
+    .card h3 { margin-bottom: 8px; }
+
+    .callout {
+      position: relative;
+      padding: 16px 16px 16px 46px;
+      border-radius: var(--radius-md);
+      color: var(--ink-soft);
+      background: rgba(229, 239, 220, 0.62);
+      box-shadow: inset 0 0 0 1px rgba(63, 119, 90, 0.18);
+    }
+
+    .callout::before {
+      content: "✓";
+      position: absolute;
+      top: 17px;
+      left: 17px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--green);
+      font: 800 12px/1 var(--mono);
+    }
+
+    .code-card {
+      overflow: auto;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      color: rgba(255, 250, 232, 0.86);
+      background: #181e19;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07);
+      font: 500 13px/1.7 var(--mono);
+      white-space: pre;
+    }
+
+
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .source-card {
+      min-width: 0;
+      padding: 15px;
+      border-radius: var(--radius-md);
+      background: rgba(24, 30, 25, 0.92);
+      box-shadow: 0 18px 40px rgba(24, 30, 25, 0.14), inset 0 0 0 1px rgba(255,255,255,0.07);
+    }
+
+    .source-title {
+      margin: 0 0 6px;
+      color: rgba(255, 250, 232, 0.96);
+      font: 800 14px/1.25 var(--mono);
+      letter-spacing: -0.012em;
+    }
+
+    .source-path {
+      margin: 0 0 8px;
+      color: oklch(83% 0.10 84);
+      font: 700 12px/1.35 var(--mono);
+      word-break: break-word;
+    }
+
+    .source-note {
+      margin: 0 0 10px;
+      color: rgba(255, 250, 232, 0.72);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .source-code {
+      max-height: 360px;
+      overflow: auto;
+      margin: 0;
+      padding: 13px;
+      border-radius: var(--radius-sm);
+      color: rgba(255, 250, 232, 0.88);
+      background: rgba(7, 12, 9, 0.72);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+      font: 500 12px/1.62 var(--mono);
+      white-space: pre;
+      tab-size: 3;
+    }
+
+    .source-code code {
+      display: block;
+      min-width: max-content;
+    }
+
+    .source-code .code-line {
+      display: block;
+      min-height: 1.62em;
+      padding-right: 24px;
+    }
+
+    .source-code .code-line:hover {
+      background: rgba(255, 250, 232, 0.04);
+    }
+
+    .source-code .line-no {
+      color: rgba(255, 250, 232, 0.36);
+      user-select: none;
+    }
+
+    .source-code .sv-keyword {
+      color: #8bd7ff;
+      font-weight: 800;
+    }
+
+    .source-code .sv-type {
+      color: #7dd3c7;
+      font-weight: 750;
+    }
+
+    .source-code .sv-uvm {
+      color: #d8b4fe;
+      font-weight: 800;
+    }
+
+    .source-code .sv-macro {
+      color: #ffd166;
+      font-weight: 800;
+    }
+
+    .source-code .sv-number {
+      color: #f4a261;
+    }
+
+    .source-code .sv-string {
+      color: #a6e3a1;
+    }
+
+    .source-code .sv-comment {
+      color: rgba(202, 211, 191, 0.58);
+      font-style: italic;
+    }
+
+    .detail-panel .source-card {
+      margin-top: 14px;
+      background: rgba(7, 12, 9, 0.44);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .detail-panel .source-code {
+      max-height: 300px;
+    }
+
+    .soft-button.inert {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      background: rgba(229, 239, 220, 0.68);
+      color: var(--green);
+    }
+
+    .source-intro {
+      margin-top: 22px;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.38);
+      box-shadow: inset 0 0 0 1px rgba(110, 78, 43, 0.09);
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .repo-map {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .repo-node {
+      min-height: 112px;
+      padding: 15px;
+      border: 0;
+      border-radius: var(--radius-md);
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.68), rgba(255,247,225,0.5));
+      box-shadow: 0 1px 3px rgba(68,45,24,0.12), inset 0 0 0 1px rgba(110,78,43,0.1);
+      cursor: pointer;
+      text-align: left;
+      transition: transform 140ms cubic-bezier(0.16,1,0.3,1), box-shadow 140ms cubic-bezier(0.16,1,0.3,1);
+      touch-action: manipulation;
+    }
+
+    .repo-node:active, .soft-button:active, .quiz-option:active { transform: scale(0.98); }
+
+    .repo-node.active {
+      box-shadow: 0 12px 28px rgba(75, 53, 33, 0.12), inset 0 0 0 2px rgba(66, 122, 99, 0.28);
+    }
+
+    .node-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      font: 800 16px/1.1 var(--mono);
+    }
+
+    .node-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(69, 126, 100, 0.12);
+    }
+
+    .repo-node p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .detail-panel {
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: rgba(24, 30, 25, 0.9);
+      color: rgba(255, 250, 232, 0.88);
+      box-shadow: 0 18px 44px rgba(24, 30, 25, 0.18);
+      min-height: 148px;
+    }
+
+    .detail-panel h3 { color: rgba(255, 250, 232, 0.96); }
+    .detail-panel p, .detail-panel li { color: rgba(255, 250, 232, 0.78); }
+    .detail-panel code { color: oklch(86% 0.11 84); }
+
+    .flow {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .flow-row {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.42);
+      box-shadow: inset 0 0 0 1px rgba(110, 78, 43, 0.1);
+    }
+
+    .flow-label {
+      font: 800 13px/1.2 var(--mono);
+      color: var(--copper);
+    }
+
+    .flow-path {
+      font: 600 13px/1.4 var(--mono);
+      color: var(--ink-soft);
+      word-break: break-word;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .check-item {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.42);
+      box-shadow: inset 0 0 0 1px rgba(110, 78, 43, 0.08);
+    }
+
+    .check-item input {
+      width: 22px;
+      height: 22px;
+      margin: 2px 0 0;
+      accent-color: var(--green);
+    }
+
+    .check-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+
+    .check-item span {
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .quiz {
+      display: grid;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .quiz-card {
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.46);
+      box-shadow: inset 0 0 0 1px rgba(110, 78, 43, 0.1);
+    }
+
+    .quiz-card p {
+      margin-top: 0;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: 9px;
+    }
+
+    .quiz-option, .soft-button {
+      min-height: 40px;
+      border: 0;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 247, 225, 0.82);
+      color: var(--ink);
+      box-shadow: inset 0 0 0 1px rgba(110, 78, 43, 0.14);
+      cursor: pointer;
+      font: 700 14px/1.25 var(--sans);
+      text-align: left;
+      transition: transform 140ms cubic-bezier(0.16,1,0.3,1), background 140ms cubic-bezier(0.16,1,0.3,1), box-shadow 140ms cubic-bezier(0.16,1,0.3,1);
+      touch-action: manipulation;
+    }
+
+    .quiz-option { padding: 11px 12px; }
+    .soft-button { padding: 10px 13px; text-align: center; }
+
+    .quiz-option.correct {
+      background: rgba(217, 239, 216, 0.92);
+      box-shadow: inset 0 0 0 2px rgba(66, 122, 99, 0.28);
+    }
+
+    .quiz-option.wrong {
+      background: rgba(246, 219, 208, 0.92);
+      box-shadow: inset 0 0 0 2px rgba(166, 64, 40, 0.25);
+    }
+
+    .feedback {
+      min-height: 24px;
+      margin: 10px 0 0;
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+    .prompt-box {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      padding: 14px;
+      border: 0;
+      border-radius: var(--radius-md);
+      color: rgba(255, 250, 232, 0.88);
+      background: #181e19;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+      font: 500 13px/1.65 var(--mono);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      color: var(--ink-soft);
+      background: rgba(255,255,255,0.52);
+      box-shadow: inset 0 0 0 1px rgba(110, 78, 43, 0.1);
+      font: 700 12px/1 var(--mono);
+    }
+
+    details {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.38);
+      box-shadow: inset 0 0 0 1px rgba(110, 78, 43, 0.08);
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .footer-note {
+      margin: 26px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      .shell { grid-template-columns: 1fr; }
+      aside {
+        position: relative;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid rgba(92,64,38,0.18);
+      }
+      nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-grid, .two-col { grid-template-columns: 1fr; }
+      .repo-map { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      main { padding: 16px 12px 42px; }
+      aside { padding: 18px 12px; }
+      nav { grid-template-columns: 1fr; }
+      .hero, .section { border-radius: 18px; padding: 20px; }
+      .repo-map, .source-grid { grid-template-columns: 1fr; }
+      .flow-row { grid-template-columns: 1fr; }
+      .section-header { display: grid; }
+      h1 { font-size: clamp(38px, 13vw, 58px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+  <div class="shell">
+    <aside aria-label="Day 0 navigation">
+      <div class="brand">
+        <div class="stamp">UVM day 0</div>
+        <div class="brand-title">Repo orientation workbook</div>
+        <p class="brand-sub">Practical UVM Step By Step 저장소를 보면서 UVM 검증 환경의 지도부터 잡는 첫 수업입니다.</p>
+      </div>
+
+      <div class="progress-panel" aria-live="polite">
+        <div class="progress-top">
+          <span>학습 진행률</span>
+          <span id="progressText">0%</span>
+        </div>
+        <div class="meter" aria-hidden="true"><span id="progressBar"></span></div>
+      </div>
+
+      <nav>
+        <a href="#overview">목표</a>
+        <a href="#why-part2">왜 Part 2인가</a>
+        <a href="#repo-map">폴더 지도</a>
+        <a href="#flow">UVM 흐름</a>
+        <a href="#quiz">퀴즈</a>
+        <a href="#ask">질문 템플릿</a>
+      </nav>
+
+      <button class="soft-button reset" id="resetProgress" type="button">진행 상태 초기화</button>
+    </aside>
+
+    <main id="main-content">
+      <section class="hero" id="overview">
+        <div class="hero-grid">
+          <div>
+            <p class="eyebrow">오늘의 목표</p>
+            <h1>UVM 코드를 읽기 전에 지도를 먼저 그린다</h1>
+            <p class="lead">Day 0는 아직 driver나 sequence를 깊게 파고들지 않습니다. 먼저 이 repo가 왜 이렇게 생겼는지, 어떤 폴더가 어떤 역할인지, 그리고 앞으로 어느 파일 순서로 읽을지 결정합니다.</p>
+            <div class="pill-row" aria-label="핵심 태그">
+              <span class="pill">UVM-1.2</span>
+              <span class="pill">VCS 중심 예제</span>
+              <span class="pill">Part 2 기준</span>
+              <span class="pill">코드 리딩 먼저</span>
+            </div>
+          </div>
+          <div class="hero-note" role="note">
+<strong>핵심 규칙</strong>
+모든 파일을 다 읽지 않는다.
+Part 2를 기준 구조로 삼고,
+다른 예제는 Part 2 대비 달라진 부분만 본다.
+
+local path:
+/home/dudupunch0/company/uvm-practical-learning
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="why-part2">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">source reading</p>
+            <h2>왜 Part_2-Putting_it_all_Together인가</h2>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="card">
+            <h3>README가 직접 말하는 기준 예제</h3>
+            <p>Part 2 README 첫 문장은 이 예제가 다른 파일들의 기준이라고 말합니다. 그래서 우리는 Part 2를 중심축으로 잡고, 나머지 advanced 예제는 나중에 “Part 2에서 무엇이 바뀌었나”라는 질문으로 읽습니다.</p>
+            <div class="code-card" aria-label="README excerpt">This example is the main example upon which all the files are patterned.
+So I have marked all the files in this example as being important.</div>
+          </div>
+          <div class="callout">
+            Part 2는 UVM testbench의 핵심 부품이 거의 모두 들어 있는 baseline입니다. transaction, sequence, sequencer, driver, monitor, agent, env, scoreboard, coverage, test를 한 번에 볼 수 있습니다.
+          </div>
+        </div>
+
+        <div class="source-intro">아래 두 발췌가 Day 0의 근거입니다. 첫 번째는 “전부 읽지 말라”는 repo 전체 전략이고, 두 번째는 Part 2가 기준 예제라는 근거와 폴더 구조입니다.</div>
+        <div class="source-grid" aria-label="README source excerpts">
+          <article class="source-card">
+            <p class="source-title">왜 모든 파일을 다 읽지 않는가</p>
+            <p class="source-path">README.md, lines 25-32</p>
+            <p class="source-note">예제들이 self-contained라서 중복 코드가 많다는 설명입니다.</p>
+            <pre class="source-code"><code>    25|Each of these examples are designed to be SELF Contained.
+    26|They contain code that is REPEATED from the other examples.
+    27|
+    28|There are typically only 1-2 files in each example that are different
+    29|from the other examples.
+    30|
+    31|DO NOT GO AND PORE THROUGH EACH FILE. YOU would be wasting your time that way.
+    32|Just look at the section below in each README to look at specific files</code></pre>
+          </article>
+          <article class="source-card">
+            <p class="source-title">왜 Part 2를 기준으로 삼는가</p>
+            <p class="source-path">Part_2-Putting_it_all_Together/README.md</p>
+            <p class="source-note">Part 2가 기준 예제이며, hdl, env, src, tests, run 구조를 어떻게 나누는지 보여줍니다.</p>
+            <pre class="source-code"><code>     1|This example is the main example upon which all the files are patterned.
+     2|So I have marked all the files in this example as being important.
+   ...|
+    23|       -hdl/        ---&gt; includes top module and inclusion of all environment files.
+    24|       |
+    25|       | - wb_env_top.sv  -- Top level file that instantiates everything
+    26|       | - dut.v     -- Dummy DUT
+    27|       |
+    28|       -env/        ---&gt; includes environment related files (environment, ralenv)
+    29|       |
+    30|       | - wb_slave_agent.sv  -- top level slave agent file
+    31|       | - wb_master_agent.sv -- top level master agent file
+    32|       | - wb_env_env.sv      -- the complete environment
+    33|       |
+    34|       -include/
+    35|       |
+    36|       -src/        ---&gt; includes Transaction, configurations, driver, monitor, master/slave subenv, scoreboard, coverage related files.
+    37|       |
+    38|       | - wb_slave.sv     --- Slave driver
+    39|       | - wb_slave_mon.sv  -- Slave monitor
+    40|       | - wb_slave_if.sv   -- slave interface
+    41|       | - wb_transaction.sv  -- transaction class
+    42|       | - wb_slave_seqr.sv   -- Slave Sequencer. This is not used in this example
+    43|       | - wb_master.sv     -- master driver
+    44|       | - wb_master_seqr.sv  -- master sequencer
+    45|       | - wb_master_agent_sequence_library.sv -- All the sequences for the master are HERE
+    46|       | - wb_master_if.sv  -- master interface
+    47|       | - wb_master_mon.sv  -- master monitor
+    48|       | - wb_env_cov.sv   -- coverage
+    49|       | - wb_env_cfg.sv   -- env config class as an example. Not used much in the example
+    50|       |
+    51|       -tests/      ---&gt; includes testbench module and testcases
+    52|       |
+    53|       | - wb_env_tb_mod.sv
+    54|       | - wb_env_test.sv --- This is the actual test you need to look at
+    55|       |
+    56|       -run/        ---&gt; Makefile
+    57|       | - Makefile
+    58|       | - simv.log -- run log file
+    59|       | - vcs.log  -- compile log file</code></pre>
+          </article>
+        </div>
+        <div class="checklist" aria-label="Day 0 checklist">
+          <label class="check-item"><input type="checkbox" data-progress="day0-readme"><span><strong>README.md 발췌 확인</strong>repo가 self-contained 예제 모음이라는 점을 아래 원문으로 확인한다.</span></label>
+          <label class="check-item"><input type="checkbox" data-progress="day0-part2"><span><strong>Part 2 README 발췌 확인</strong>Part 2가 기준 예제라는 점을 아래 원문으로 확인한다.</span></label>
+          <label class="check-item"><input type="checkbox" data-progress="day0-skip-all"><span><strong>전부 읽지 않기 전략 이해</strong>중복 파일을 모두 읽는 대신 기준 구조와 변경 지점을 추적한다.</span></label>
+        </div>
+      </section>
+
+      <section class="section" id="repo-map">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">interactive map</p>
+            <h2>Part 2 폴더 지도</h2>
+          </div>
+          <span class="soft-button inert" role="status">원문 발췌 포함됨</span>
+        </div>
+        <p>아래 카드를 눌러 각 폴더의 역할과 Day 0에서 봐야 할 원문 코드 발췌를 확인하세요. 별도 에디터를 열지 않고도 핵심 부분을 읽을 수 있습니다.</p>
+        <div class="repo-map" role="list" aria-label="Part 2 directory map">
+          <button class="repo-node active" type="button" data-node="hdl" role="listitem"><span class="node-title">hdl <span class="node-dot"></span></span><p>DUT와 top-level HDL 연결부</p></button>
+          <button class="repo-node" type="button" data-node="tests" role="listitem"><span class="node-title">tests <span class="node-dot"></span></span><p>UVM test와 run_test 진입점</p></button>
+          <button class="repo-node" type="button" data-node="env" role="listitem"><span class="node-title">env <span class="node-dot"></span></span><p>agent와 전체 환경 조립</p></button>
+          <button class="repo-node" type="button" data-node="src" role="listitem"><span class="node-title">src <span class="node-dot"></span></span><p>검증 부품 대부분이 있는 곳</p></button>
+          <button class="repo-node" type="button" data-node="include" role="listitem"><span class="node-title">include <span class="node-dot"></span></span><p>include 묶음과 compile 편의</p></button>
+          <button class="repo-node" type="button" data-node="run" role="listitem"><span class="node-title">run <span class="node-dot"></span></span><p>Makefile과 simulator log</p></button>
+        </div>
+        <div class="detail-panel" id="nodeDetail" aria-live="polite"></div>
+      </section>
+
+      <section class="section" id="flow">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">mental model</p>
+            <h2>UVM testbench를 데이터 흐름으로 읽기</h2>
+          </div>
+        </div>
+        <p>처음에는 class 이름보다 흐름이 중요합니다. UVM은 추상적인 transaction을 만들고, driver가 pin-level signal로 바꾸고, monitor가 다시 transaction으로 관찰해서 scoreboard와 coverage로 보냅니다.</p>
+        <div class="flow" aria-label="UVM reading order">
+          <div class="flow-row"><div class="flow-label">entry</div><div class="flow-path">tests/wb_env_tb_mod.sv -> run_test()</div></div>
+          <div class="flow-row"><div class="flow-label">test</div><div class="flow-path">tests/wb_env_test.sv -> env 생성, config_db 설정, default_sequence 선택</div></div>
+          <div class="flow-row"><div class="flow-label">stimulus</div><div class="flow-path">src/wb_transaction.sv -> src/wb_master_agent_sequence_library.sv</div></div>
+          <div class="flow-row"><div class="flow-label">drive</div><div class="flow-path">src/wb_master_seqr.sv -> src/wb_master.sv -> src/wb_master_if.sv</div></div>
+          <div class="flow-row"><div class="flow-label">observe</div><div class="flow-path">src/wb_master_mon.sv, src/wb_slave_mon.sv -> analysis_port</div></div>
+          <div class="flow-row"><div class="flow-label">judge</div><div class="flow-path">src/wb_scoreboard.sv, src/wb_env_cov.sv</div></div>
+        </div>
+        <details>
+          <summary>한 문장으로 요약</summary>
+          <p>sequence가 검증 의도를 만들고, driver가 의도를 핀으로 바꾸며, monitor가 핀 변화를 관찰하고, scoreboard와 coverage가 결과와 충분성을 판단합니다.</p>
+        </details>
+
+        <div class="source-intro">아래 발췌들은 위 data flow 각 줄의 실제 코드입니다. Day 0에서는 전체를 완벽히 이해하려고 하지 말고, “이 파일이 어떤 역할을 맡는가”만 표시하면서 읽으면 됩니다.</div>
+        <div class="source-grid" id="source-excerpts" aria-label="UVM flow source excerpts">
+          <article class="source-card">
+            <p class="source-title">entry, run_test와 virtual interface 주입</p>
+            <p class="source-path">tests/wb_env_tb_mod.sv, lines 16-24</p>
+            <p class="source-note">module world에서 interface handle을 config_db에 넣고 run_test()로 UVM class world를 시작합니다.</p>
+            <pre class="source-code"><code>    16|   typedef virtual wb_master_if v_if1;
+    17|   typedef virtual wb_slave_if v_if2;
+    18|   initial begin
+    19|      uvm_config_db #(v_if1)::set(null,"uvm_test_top.env.master_agent","mst_if",wb_env_top_mod.mast_if);
+    20|      uvm_config_db #(v_if2)::set(null,"uvm_test_top.env.slave_agent","slv_if",wb_env_top_mod.slave_if);
+    21|      uvm_config_db #(bit) :: set(null,"env.slave_agent","is_active",1);
+    22|      uvm_config_db #(bit) :: set(null,"env.master_agent","is_active",1);
+    23|
+    24|      run_test();</code></pre>
+          </article>
+          <article class="source-card">
+            <p class="source-title">test, env 생성과 default_sequence 선택</p>
+            <p class="source-path">tests/wb_env_test.sv, lines 22-39</p>
+            <p class="source-note">test가 config를 만들고 env를 생성한 뒤 master sequencer의 main_phase에 sequence_1을 연결합니다.</p>
+            <pre class="source-code"><code>    22|  virtual function void build_phase(uvm_phase phase);
+    23|    super.build_phase(phase);
+    24|    slave_adr_min = 32'h0;
+    25|    slave_adr_max = 32'h0fffffe;
+    26|
+    27|// Create and Build the configuration
+    28|	master_config = wb_config::type_id::create("master_configuration");
+    29|	slave_config = wb_config::type_id::create("slave_configuration");
+    30|// Randomize the configuration
+    31|	  slave_config.randomize with {min_addr == slave_adr_min; max_addr == slave_adr_max; max_n_wss == 2; };
+    32|	  master_config.randomize with {min_addr == slave_adr_min; max_addr == slave_adr_max; max_n_wss == 2; };
+    33|// Set in Config DB
+    34|      uvm_config_db #(wb_config)::set(null,"uvm_test_top.env.master_agent","mstr_agent_cfg",master_config);
+    35|      uvm_config_db #(wb_config)::set(null,"uvm_test_top.env.slave_agent","mstr_agent_cfg",slave_config);
+    36|    env = wb_env_env::type_id::create("env", this);
+    37|
+    38|    uvm_config_db #(uvm_object_wrapper)::set(this, "env.master_agent.mast_sqr.main_phase", "default_sequence", sequence_1::get_type());
+    39|  endfunction</code></pre>
+          </article>
+          <article class="source-card">
+            <p class="source-title">stimulus, transaction의 필드와 constraint</p>
+            <p class="source-path">src/wb_transaction.sv</p>
+            <p class="source-note">UVM에서 신호를 직접 randomize하지 않고 bus operation을 표현하는 sequence item을 randomize합니다.</p>
+            <pre class="source-code"><code>    12|class wb_transaction extends uvm_sequence_item;
+    13|
+    14|   // Different types of read and Write cycles.
+    15|   typedef enum {READ, WRITE, BLK_RD, BLK_WR, RMW} kinds_e;
+    16|   rand kinds_e kind;
+    17|
+    18|   // This is the status of the transaction
+    19|   typedef enum {OK, ACK, RTY, ERR, TIMEOUT ,INFLIGHT , UNKNOWN } status_e;
+    20|   wb_config cfg;  // Must be non-NULL to randomize
+    21|
+    22|   rand status_e status;
+    23|
+    24|   typedef enum {CLASSIC, CONSTANT,
+    25|                 LINEAR, WRAP4, WRAP8, WRAP16,
+    26|                 EOB} pipelining_e;
+    27|   rand pipelining_e next_cycle;
+    28|
+    29|   rand bit [63:0] address;
+    30|   rand bit [63:0] data;
+    31|   rand bit [ 7:0] sel;
+    32|   rand bit [15:0] tgc;
+    33|   rand bit [15:0] tga;
+    34|   rand bit [15:0] tgd;
+    35|   rand bit        lock;
+    36|   rand bit [15:0] tag;
+    37|
+    38|   int		num_wait_states;
+    39|
+    40|   constraint supported {
+    41|      next_cycle == CLASSIC;
+    42|      kind == READ || kind == WRITE;
+    43|   }
+   ...|
+    64|   `uvm_object_utils_begin(wb_transaction)
+    65|      `uvm_field_int(address,UVM_DEFAULT)
+    66|      `uvm_field_int(data,UVM_DEFAULT)
+    67|      `uvm_field_int(sel,UVM_DEFAULT)
+    68|      `uvm_field_int(tga,UVM_DEFAULT)
+    69|      `uvm_field_int(tgc,UVM_DEFAULT)
+    70|      `uvm_field_int(lock,UVM_DEFAULT)
+    71|      `uvm_field_int(num_wait_states,UVM_DEFAULT)
+    72|      `uvm_field_enum(kinds_e,kind,UVM_DEFAULT)
+    73|      `uvm_field_enum(status_e,status, UVM_DEFAULT)
+    74|      `uvm_field_enum(pipelining_e,next_cycle, UVM_DEFAULT)
+    75|   `uvm_object_utils_end
+    76|
+    77|   function new(string name="" );
+    78|      super.new(name);
+    79|      cfg = new();
+    80|   endfunction: new</code></pre>
+          </article>
+          <article class="source-card">
+            <p class="source-title">sequence, 구체적인 read/write 의도</p>
+            <p class="source-path">src/wb_master_agent_sequence_library.sv, lines 84-99</p>
+            <p class="source-note">sequence_1은 address와 kind를 지정해서 WRITE와 READ transaction을 순서대로 만듭니다.</p>
+            <pre class="source-code"><code>    84|class sequence_1 extends base_sequence;
+    85|   byte sa;
+    86|   `uvm_object_utils(sequence_1)
+    87|   `uvm_add_to_seq_lib(sequence_1, wb_master_seqr_sequence_library)
+    88|   function new(string name = "seq_1");
+    89|      super.new(name);
+    90|   endfunction:new
+    91|   virtual task body();
+    92|      `uvm_do_with(req, {address == 3; kind == wb_transaction::WRITE; data == 63'hdeadbeef;} )
+    93|      `uvm_do_with(req,{address == 4; kind == wb_transaction::WRITE; data == 63'hbeefdead;} )
+    94|      `uvm_do_with(req, {address == 5; kind == wb_transaction::WRITE; data == 63'h0123456678;} )
+    95|
+    96|      `uvm_do_with(req, {address == 6; kind == wb_transaction::READ ;} )
+    97|      `uvm_do_with(req, {address == 6; kind == wb_transaction::READ;} )
+    98|      `uvm_do_with(req, {address == 7; kind == wb_transaction::READ;} )
+    99|   endtask</code></pre>
+          </article>
+          <article class="source-card">
+            <p class="source-title">driver, transaction을 받아 pin-level 동작으로 보냄</p>
+            <p class="source-path">src/wb_master.sv, lines 126-170</p>
+            <p class="source-note">driver는 seq_item_port에서 item을 받아 kind에 따라 read/write task로 넘깁니다.</p>
+            <pre class="source-code"><code>   126|   task wb_master::main_driver();
+   127|      int count;
+   128|      count = 0;
+   129|      forever begin
+   130|	 wb_transaction tr;
+   131|	 bit drop = 0;
+   132|	 // Set output signals to their idle state
+   133|
+   134|	 this.drv_if.master_cb.DAT_O &lt;= 'bz;
+   135|         this.drv_if.master_cb.TGD_O &lt;= 'bz;
+   136|         this.drv_if.master_cb.ADR_O &lt;= 'bz;
+   137|         this.drv_if.master_cb.CYC_O &lt;= 'bz;
+   138|         this.drv_if.master_cb.LOCK_O &lt;= 'bz;
+   139|         this.drv_if.master_cb.SEL_O &lt;= 'bz;
+   140|         this.drv_if.master_cb.STB_O &lt;= 'b0;
+   141|         this.drv_if.master_cb.TGA_O &lt;= 'bz;
+   142|         this.drv_if.master_cb.TGC_O &lt;= 'bz;
+   143|
+   144|	 seq_item_port.get_next_item(tr);
+   145|	 `uvm_info("wb_env_DRIVER", "Starting transaction...",UVM_LOW)
+   146|	 `uvm_do_callbacks(wb_master,wb_master_callbacks, pre_tx(this, tr))
+   147|	 // Since we are just beginning the transaction, we dont know what kind it's yet.
+   148|
+   149|         tr.status = wb_transaction::UNKNOWN;
+   150|
+   151|	 case (tr.kind)
+   152|           wb_transaction::READ: begin
+   153|	      read(tr);
+   154|           end
+   155|           wb_transaction::WRITE: begin
+   156|              // ToDo: Implement DISPLAY transaction
+   157|	      write(tr);
+   158|           end
+   159|           wb_transaction::BLK_RD: begin
+   160|              // ToDo: Implement BLK_RD transaction
+   161|           end
+   162|           wb_transaction::BLK_WR: begin
+   163|              // ToDo: Implement BLK_RD transaction
+   164|           end
+   165|           wb_transaction::RMW: begin
+   166|              // ToDo: Implement RMW transaction
+   167|           end
+   168|	 endcase
+   169|
+   170|	 seq_item_port.item_done();</code></pre>
+          </article>
+          <article class="source-card">
+            <p class="source-title">monitor, signal을 다시 transaction으로 관찰</p>
+            <p class="source-path">src/wb_master_mon.sv</p>
+            <p class="source-note">monitor는 CYC/STB 조건을 기다린 뒤 signal을 읽어서 wb_transaction을 만들고 analysis_port로 내보냅니다.</p>
+            <pre class="source-code"><code>   130|   task wb_master_mon::master_monitor_task();
+   131|
+   132|      forever begin
+   133|	 wb_transaction tr;
+   134|
+   135|	 do begin
+   136|
+   137|            @(this.mon_if.CYC_O or
+   138|              this.mon_if.STB_O or
+   139|              this.mon_if.ADR_O or
+   140|              this.mon_if.SEL_O or
+   141|              this.mon_if.WE_O  or
+   142|              this.mon_if.TGA_O or
+   143|              this.mon_if.TGC_O);
+   144|	 end while (this.mon_if.CYC_O !== 1'b1 ||
+   145|                    this.mon_if.STB_O !== 1'b1);
+   146|	 tr= wb_transaction::type_id::create("tr", this);
+   ...|
+   154|	      tr.tga = this.mon_if.TGA_O;
+   155|	      if(this.mon_if.WE_O) begin
+   156|		 tr.kind = wb_transaction::WRITE;
+   157|		 `uvm_info("WB master Monitor","got a write transaction  from Master ",UVM_LOW)
+   158|		 tr.data  = this.mon_if.DAT_I;
+   159|	         tr.tgd  = this.mon_if.TGD_O;
+   160|		 tr.status = wb_transaction::ACK;
+   161|              end
+   162|	      else begin
+   163|		 tr.kind = wb_transaction::READ ;
+   164|		 `uvm_info("Wb_master Monitor","got a read transaction  ",UVM_LOW)
+   165|
+   166|		 tr.status = wb_transaction::ACK;
+   167|	      end
+   168|
+   169|	      `uvm_do_callbacks(wb_master_mon,wb_master_mon_callbacks,
+   170|				pre_ack(this, tr))
+   171|
+   172|	      wait(this.mon_if.master_cb.ACK_I);
+   173|	      tr.data  = this.mon_if.DAT_O;
+   174|	      tr.tgd  = this.mon_if.TGD_O;
+   175|
+   176|	      tr.sel = this.mon_if.SEL_O;
+   177|	      tr.tgc  = this.mon_if.TGC_O;
+   178|	      @(this.mon_if.monitor_cb);
+   179|	   end
+   180|	 `uvm_do_callbacks(wb_master_mon,wb_master_mon_callbacks,
+   181|			   post_trans(this, tr))
+   182|	 mon_analysis_port.write(tr);</code></pre>
+          </article>
+          <article class="source-card">
+            <p class="source-title">judge, scoreboard 비교</p>
+            <p class="source-path">src/wb_scoreboard.sv, lines 39-59</p>
+            <p class="source-note">expected와 actual FIFO에서 transaction을 꺼내 compare하고 mismatch면 uvm_error를 냅니다.</p>
+            <pre class="source-code"><code>    39|task wb_scoreboard::run_phase( uvm_phase phase );
+    40|   wb_transaction expected_transaction;
+    41|   wb_transaction   actual_transaction;
+    42|
+    43|   super.run_phase( phase ); // THis should do nothing
+    44|   forever begin
+    45|      expected_wb_transaction_fifo.get_peek_export.get( expected_transaction);
+    46|      actual_wb_transaction_fifo.get_peek_export.get(actual_transaction);
+    47|      `uvm_info("SCOREBOARD","EXPECTED TRANSACTION",UVM_LOW)
+    48|      expected_transaction.print();
+    49|      `uvm_info("SCOREBOARD","ACTUAL TRANSACTION",UVM_LOW)
+    50|      actual_transaction.print();
+    51|
+    52|      if ( !expected_transaction.compare( actual_transaction)  ) begin
+    53|         `uvm_error( "WB Scoreboard", "wb_transaction mismatch")
+    54|	 //expected_transaction.print();
+    55|	 //actual_transaction.print();
+    56|      end
+    57|      else begin
+    58|	 `uvm_info("WB SCOREBOARD", "TRANSACTIONS MATCH", UVM_LOW)
+    59|      end</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="quiz">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">active recall</p>
+            <h2>Day 0 확인 퀴즈</h2>
+          </div>
+        </div>
+        <div class="quiz" id="quizList">
+          <article class="quiz-card" data-question="q1">
+            <p>1. 이 repo에서 모든 파일을 처음부터 끝까지 읽으면 비효율적인 가장 큰 이유는?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" type="button" data-correct="false">SystemVerilog 파일이 하나도 없기 때문이다.</button>
+              <button class="quiz-option" type="button" data-correct="true">각 예제가 self-contained라서 중복 파일이 많기 때문이다.</button>
+              <button class="quiz-option" type="button" data-correct="false">Part 2가 비어 있기 때문이다.</button>
+            </div>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="quiz-card" data-question="q2">
+            <p>2. tests 디렉터리의 역할에 가장 가까운 것은?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" type="button" data-correct="false">DUT RTL만 모아두는 곳</button>
+              <button class="quiz-option" type="button" data-correct="true">UVM test class와 testbench top 진입점을 담는 곳</button>
+              <button class="quiz-option" type="button" data-correct="false">시뮬레이터 실행 로그만 저장하는 곳</button>
+            </div>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="quiz-card" data-question="q3">
+            <p>3. driver와 monitor의 차이를 가장 잘 설명한 것은?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" type="button" data-correct="true">driver는 transaction을 signal로 drive하고, monitor는 signal을 관찰해서 transaction으로 복원한다.</button>
+              <button class="quiz-option" type="button" data-correct="false">driver와 monitor는 둘 다 DUT를 직접 수정한다.</button>
+              <button class="quiz-option" type="button" data-correct="false">monitor는 sequence를 만들고 driver는 coverage를 만든다.</button>
+            </div>
+            <p class="feedback"></p>
+          </article>
+
+          <article class="quiz-card" data-question="q4">
+            <p>4. scoreboard와 coverage의 역할 구분으로 맞는 것은?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" type="button" data-correct="false">scoreboard는 compile 명령이고 coverage는 top module이다.</button>
+              <button class="quiz-option" type="button" data-correct="false">scoreboard는 랜덤 값을 만들고 coverage는 signal을 drive한다.</button>
+              <button class="quiz-option" type="button" data-correct="true">scoreboard는 결과가 맞는지 비교하고, coverage는 충분히 다양한 경우를 해봤는지 측정한다.</button>
+            </div>
+            <p class="feedback"></p>
+          </article>
+        </div>
+        <div class="checklist">
+          <label class="check-item"><input type="checkbox" data-progress="day0-map"><span><strong>폴더 역할 설명 완료</strong>hdl, tests, env, src, include, run을 각각 한 문장으로 말할 수 있다.</span></label>
+          <label class="check-item"><input type="checkbox" data-progress="day0-flow"><span><strong>UVM 흐름 설명 완료</strong>transaction부터 coverage까지의 흐름을 말할 수 있다.</span></label>
+          <label class="check-item"><input type="checkbox" data-progress="day0-quiz"><span><strong>퀴즈 복습 완료</strong>틀린 문제의 이유를 다시 설명할 수 있다.</span></label>
+        </div>
+      </section>
+
+      <section class="section" id="ask">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">study loop</p>
+            <h2>모르면 이렇게 물어보면 됩니다</h2>
+          </div>
+        </div>
+        <p>학습 중 막히면 아래 템플릿을 복사해서 나에게 물어보세요. 파일 경로와 헷갈리는 개념을 같이 주면 내가 해당 파일을 다시 읽고 설명을 이어갈 수 있습니다.</p>
+        <textarea class="prompt-box" id="promptBox" spellcheck="false">나는 UVM Day 0 자료를 보고 있어.
+현재 헷갈리는 파일: Part_2-Putting_it_all_Together/[파일 경로]
+헷갈리는 개념: [예: driver와 monitor 차이, env와 agent 관계]
+내가 이해한 내용: [내 말로 적기]
+이해가 안 되는 지점: [질문]
+
+이 파일을 기준으로 초보자 관점에서 다시 설명하고, 확인 질문 3개를 내줘.</textarea>
+        <div class="pill-row">
+          <button class="soft-button" type="button" id="copyPrompt">질문 템플릿 복사</button>
+          <a class="soft-button" href="../UVM_LEARNING_CHECKLIST.ko.md">체크리스트 원문 열기</a>
+        </div>
+      </section>
+
+      <p class="footer-note">Day 0 완료 후 다음 단계는 “UVM 전체 구조 mental model”입니다. 여기서부터 transaction, sequence, driver, monitor를 실제 파일로 하나씩 뜯어봅니다.</p>
+    </main>
+  </div>
+
+  <script>
+    const storageKey = "uvm-day0-workbook-v1";
+    const state = JSON.parse(localStorage.getItem(storageKey) || "{}");
+
+    const nodeData = {
+      "hdl": {
+            "title": "hdl, DUT와 top-level HDL",
+            "body": "검증 대상 회로와 top 연결부를 담습니다. 여기서는 clock/reset을 만들고 master/slave interface, testbench module, DUT를 한 top에 묶는 부분만 보면 됩니다.",
+            "files": [
+                  "hdl/wb_env_top.sv",
+                  "hdl/dut2.sv",
+                  "hdl/design.sv"
+            ],
+            "snippetTitle": "top module이 실제로 묶는 것",
+            "snippetPath": "hdl/wb_env_top.sv, lines 6-27",
+            "snippetNote": "clk/rst 생성, interface instance, testbench module, DUT instance가 한곳에 모입니다.",
+            "snippet": "     6|module wb_env_top_mod();\n     7|\n     8|   logic clk;\n     9|   logic rst;\n    10|\n    11|   // Clock Generation\n    12|   parameter sim_cycle = 10;\n    13|   // Reset Delay Parameter\n    14|   parameter rst_delay = 5;\n    15|   initial begin \n    16|      clk  = 0;\n    17|      forever clk = #(sim_cycle/2) ~clk;\n    18|      #10000 $finish;\n    19|   end \n    20|\n    21|   wb_master_if mast_if(clk,rst);\n    22|   wb_slave_if slave_if(clk,rst);\n    23|\n    24|   wb_env_tb_mod test(); \n    25|\n    26|   dut dut(mast_if,slave_if);\n    27|"
+      },
+      "tests": {
+            "title": "tests, UVM test와 진입점",
+            "body": "어떤 UVM test를 실행할지 정하고, testbench top module에서 run_test()를 호출하는 쪽입니다. Day 0에서는 run_test와 config_db set만 확인하면 충분합니다.",
+            "files": [
+                  "tests/wb_env_tb_mod.sv",
+                  "tests/wb_env_test.sv",
+                  "tests/wb_env_base_test.sv"
+            ],
+            "snippetTitle": "run_test 전에 virtual interface를 config_db에 넣는다",
+            "snippetPath": "tests/wb_env_tb_mod.sv, lines 16-24",
+            "snippetNote": "module 안의 실제 interface instance를 UVM component가 받을 수 있게 config_db에 등록합니다.",
+            "snippet": "    16|   typedef virtual wb_master_if v_if1;\n    17|   typedef virtual wb_slave_if v_if2;\n    18|   initial begin\n    19|      uvm_config_db #(v_if1)::set(null,\"uvm_test_top.env.master_agent\",\"mst_if\",wb_env_top_mod.mast_if); \n    20|      uvm_config_db #(v_if2)::set(null,\"uvm_test_top.env.slave_agent\",\"slv_if\",wb_env_top_mod.slave_if);\n    21|      uvm_config_db #(bit) :: set(null,\"env.slave_agent\",\"is_active\",1);\n    22|      uvm_config_db #(bit) :: set(null,\"env.master_agent\",\"is_active\",1);\n    23|\n    24|      run_test();"
+      },
+      "env": {
+            "title": "env, agent들을 조립하는 환경",
+            "body": "master agent, slave agent, scoreboard, coverage 같은 검증 부품을 계층적으로 묶는 곳입니다. build_phase는 만들고, connect_phase는 TLM 연결을 겁니다.",
+            "files": [
+                  "env/wb_master_agent.sv",
+                  "env/wb_slave_agent.sv",
+                  "env/wb_env_env.sv"
+            ],
+            "snippetTitle": "build_phase와 connect_phase의 역할",
+            "snippetPath": "env/wb_env_env.sv, lines 24-43",
+            "snippetNote": "agent, coverage, scoreboard를 만들고 monitor analysis_port를 coverage와 scoreboard FIFO에 연결합니다.",
+            "snippet": "    24|function void wb_env_env::build_phase(uvm_phase phase);\n    25|   super.build_phase(phase);\n    26|   master_agent = wb_master_agent::type_id::create(\"master_agent\",this); \n    27|   slave_agent = wb_slave_agent::type_id::create(\"slave_agent\",this);\n    28| \n    29|    cov = wb_env_cov::type_id::create(\"cov\",this); //Instantiating the coverage class\n    30|\n    31|    mon2cov  = wb_master_mon_2cov_connect::type_id::create(\"mon2cov\", this);\n    32|    mon2cov.cov = cov;\n    33|\t sb = wb_scoreboard::type_id::create(\"sb\",this);\n    34|\n    35|endfunction: build_phase\n    36|\n    37|function void wb_env_env::connect_phase(uvm_phase phase);\n    38|   super.connect_phase(phase);\n    39|   master_agent.mast_mon.mon_analysis_port.connect(cov.cov_export);\n    40|  master_agent.mast_mon.mon_analysis_port.connect(sb.expected_wb_transaction_fifo.analysis_export);\n    41|   slave_agent.slv_mon.mon_analysis_port.connect(sb.actual_wb_transaction_fifo.analysis_export);\n    42|\n    43|endfunction: connect_phase"
+      },
+      "src": {
+            "title": "src, 검증 부품의 본체",
+            "body": "transaction, sequence, driver, monitor, sequencer, scoreboard, coverage, config가 들어 있습니다. Day 0에서는 transaction이 “의도”, driver가 “구동”, monitor가 “관찰”이라는 구분만 잡습니다.",
+            "files": [
+                  "src/wb_transaction.sv",
+                  "src/wb_master_agent_sequence_library.sv",
+                  "src/wb_master.sv",
+                  "src/wb_master_mon.sv",
+                  "src/wb_scoreboard.sv"
+            ],
+            "snippetTitle": "transaction은 bus operation의 데이터 모델",
+            "snippetPath": "src/wb_transaction.sv",
+            "snippetNote": "READ/WRITE kind, address, data, sel 같은 필드와 constraint가 transaction의 의미를 만듭니다.",
+            "snippet": "    12|class wb_transaction extends uvm_sequence_item;\n    13|\n    14|   // Different types of read and Write cycles.\n    15|   typedef enum {READ, WRITE, BLK_RD, BLK_WR, RMW} kinds_e;\n    16|   rand kinds_e kind;\n    17|\n    18|   // This is the status of the transaction\n    19|   typedef enum {OK, ACK, RTY, ERR, TIMEOUT ,INFLIGHT , UNKNOWN } status_e;\n    20|   wb_config cfg;  // Must be non-NULL to randomize\n    21|\n    22|   rand status_e status;\n    23|\n    24|   typedef enum {CLASSIC, CONSTANT,\n    25|                 LINEAR, WRAP4, WRAP8, WRAP16,\n    26|                 EOB} pipelining_e;\n    27|   rand pipelining_e next_cycle;\n    28|\n    29|   rand bit [63:0] address;\n    30|   rand bit [63:0] data;\n    31|   rand bit [ 7:0] sel;\n    32|   rand bit [15:0] tgc;\n    33|   rand bit [15:0] tga;\n    34|   rand bit [15:0] tgd;\n    35|   rand bit        lock;\n    36|   rand bit [15:0] tag;\n    37|\n    38|   int \t\tnum_wait_states;\n    39|\n    40|   constraint supported {\n    41|      next_cycle == CLASSIC;\n    42|      kind == READ || kind == WRITE;\n    43|   }\n   ...|\n    64|   `uvm_object_utils_begin(wb_transaction) \n    65|      `uvm_field_int(address,UVM_DEFAULT)\n    66|      `uvm_field_int(data,UVM_DEFAULT)\n    67|      `uvm_field_int(sel,UVM_DEFAULT)\n    68|      `uvm_field_int(tga,UVM_DEFAULT)\n    69|      `uvm_field_int(tgc,UVM_DEFAULT)\n    70|      `uvm_field_int(lock,UVM_DEFAULT)\n    71|      `uvm_field_int(num_wait_states,UVM_DEFAULT)\n    72|      `uvm_field_enum(kinds_e,kind,UVM_DEFAULT)\n    73|      `uvm_field_enum(status_e,status, UVM_DEFAULT)\n    74|      `uvm_field_enum(pipelining_e,next_cycle, UVM_DEFAULT)\n    75|   `uvm_object_utils_end\n    76|\n    77|   function new(string name=\"\" );\n    78|      super.new(name);\n    79|      cfg = new();\n    80|   endfunction: new"
+      },
+      "include": {
+            "title": "include, 파일 묶음",
+            "body": "여러 SystemVerilog 파일을 include로 묶어서 compile 순서를 단순화합니다. 처음에는 include가 실제 코드를 숨긴다는 점만 기억하면 됩니다.",
+            "files": [
+                  "include/wb_env.sv"
+            ],
+            "snippetTitle": "wb_env.sv가 끌어오는 검증 부품",
+            "snippetPath": "include/wb_env.sv, lines 11-20",
+            "snippetNote": "mstr_slv_src.incl 뒤에 env config, coverage, monitor-to-coverage bridge, scoreboard를 포함합니다.",
+            "snippet": "    11|`include \"mstr_slv_src.incl\"\n    12|\n    13|`include \"wb_env_cfg.sv\"\n    14|\n    15|\n    16|\n    17|`include \"wb_env_cov.sv\"\n    18|\n    19|`include \"mon_2cov.sv\"\n    20|`include \"wb_scoreboard.sv\""
+      },
+      "run": {
+            "title": "run, simulator recipe",
+            "body": "Makefile, compile log, run log가 있는 곳입니다. 현재 머신에는 VCS가 없으므로 당장은 실행보다 compile 대상과 +UVM_TESTNAME 구조를 읽는 데 사용합니다.",
+            "files": [
+                  "run/Makefile",
+                  "run/vcs.log",
+                  "run/simv.log"
+            ],
+            "snippetTitle": "VCS compile/run 명령의 뼈대",
+            "snippetPath": "run/Makefile",
+            "snippetNote": "+incdir, COMP_OPTS, compile 대상, +UVM_TESTNAME이 어디에 있는지 확인합니다.",
+            "snippet": "     8|INCL      = +incdir+../include+../src+../env+../tests+../hdl\n     9|\n    10|################################################################################\n    11|\n    12|DEFINES   = \n    13|COMP_OPTS =   \n    14|RUN_OPTS  = -l simv.log  -lca +UVM_CONFIG_DB_TRACE\n   ...|\n    41|COMP_OPTS =  -sverilog -l vcs.log $(UVM) $(INCL) $(DEFINES)   +define+UVM_NO_DEPRECATED +define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR -debug_all \n    42|\n    43|all default: check clean comp run\n   ...|\n    69|\t\tvcs $(COMP_OPTS)  \\\n    70|        \t ../tests/wb_env_tb_mod.sv ../hdl/wb_env_top.sv ../hdl/dut2.sv\n    71|endif\t\t\t \n    72|endif\t\t \n    73|endif\n    74|\n    75|run: check\n    76|ifndef ERR_STATUS\n    77|ifeq ($(MODE), RECORD)\n    78|\t./simv  $(RUN_OPTS) \\\n    79|        +ntb_random_seed=$(SEED) +UVM_TESTNAME=$(UVM_TEST) \n    80|else\t\n    81|\t./simv  $(RUN_OPTS) \\\n    82|        +ntb_random_seed=$(SEED) +UVM_TESTNAME=$(UVM_TEST)    "
+      }
+};
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    const svKeywords = new Set(`
+      always always_comb always_ff always_latch and assign automatic begin break case
+      casex casez class clocking config constraint continue covergroup coverpoint cross
+      default disable do edge else end endcase endclass endclocking endconfig endfunction
+      endgenerate endgroup endinterface endmodule endpackage endprogram endproperty
+      endsequence endtask enum expect export extends extern final for force forever fork
+      function generate genvar if iff import initial inout input inside interface join
+      join_any join_none local localparam logic modport module negedge new null or output
+      package parameter posedge program property protected pure rand randc ref release
+      repeat return sequence soft solve static super tagged task this through timeprecision
+      timeunit typedef unique unique0 virtual wait while with
+    `.trim().split(/\s+/));
+
+    const svTypes = new Set(`
+      bit byte chandle event int integer longint mailbox process real realtime reg
+      semaphore shortint shortreal signed string time tri unsigned var void wire
+    `.trim().split(/\s+/));
+
+    function highlightSystemVerilog(source) {
+      const tokenPattern = /\/\/[^\n]*|\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|`[A-Za-z_][A-Za-z0-9_$]*|(?:\d+)?'[sS]?[bBoOdDhH][0-9a-fA-F_xXzZ?]+|\b\d+(?:\.\d+)?\b|\b[A-Za-z_][$\w]*\b/g;
+      let cursor = 0;
+      let html = "";
+      for (const match of source.matchAll(tokenPattern)) {
+        const token = match[0];
+        html += escapeHtml(source.slice(cursor, match.index));
+        let cls = "";
+        if (token.startsWith("//") || token.startsWith("/*")) cls = "sv-comment";
+        else if (token.startsWith("\"")) cls = "sv-string";
+        else if (token.startsWith("`")) cls = "sv-macro";
+        else if (/^(?:\d+)?'[sS]?[bBoOdDhH]/.test(token) || /^\d/.test(token)) cls = "sv-number";
+        else if (/^(?:uvm_|UVM_)/.test(token)) cls = "sv-uvm";
+        else if (svKeywords.has(token)) cls = "sv-keyword";
+        else if (svTypes.has(token)) cls = "sv-type";
+        html += cls ? `<span class="${cls}">${escapeHtml(token)}</span>` : escapeHtml(token);
+        cursor = match.index + token.length;
+      }
+      return html + escapeHtml(source.slice(cursor));
+    }
+
+    function detectSourceLanguage(card) {
+      const path = card.querySelector(".source-path")?.textContent || "";
+      return /\.(?:sv|svh)\b|\.incl\b/.test(path) ? "sv" : "plain";
+    }
+
+    function renderHighlightedLine(line, language) {
+      const match = line.match(/^(\s*(?:\d+|\.\.\.)\|)(.*)$/);
+      const gutter = match ? `<span class="line-no">${escapeHtml(match[1])}</span>` : "";
+      const body = match ? match[2] : line;
+      const bodyHtml = language === "sv" ? highlightSystemVerilog(body) : escapeHtml(body);
+      return `<span class="code-line">${gutter}${bodyHtml}</span>`;
+    }
+
+    function highlightCodeBlocks() {
+      document.querySelectorAll(".source-card").forEach((card) => {
+        const language = detectSourceLanguage(card);
+        card.querySelectorAll("pre.source-code > code").forEach((code) => {
+          const source = code.textContent;
+          code.innerHTML = source.split(/\n/).map((line) => renderHighlightedLine(line, language)).join("");
+        });
+      });
+    }
+
+    function saveState() {
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }
+
+    function updateProgress() {
+      const checks = Array.from(document.querySelectorAll("input[data-progress]"));
+      const done = checks.filter((item) => item.checked).length;
+      const pct = checks.length ? Math.round((done / checks.length) * 100) : 0;
+      document.getElementById("progressText").textContent = pct + "%";
+      document.getElementById("progressBar").style.width = pct + "%";
+    }
+
+    function renderNode(key) {
+      const data = nodeData[key];
+      if (!data) return;
+      state.activeNode = key;
+      saveState();
+      document.querySelectorAll(".repo-node").forEach((button) => {
+        button.classList.toggle("active", button.dataset.node === key);
+      });
+      const fileList = data.files.map((file) => `<li><code>Part_2-Putting_it_all_Together/${escapeHtml(file)}</code></li>`).join("");
+      document.getElementById("nodeDetail").innerHTML = `
+        <h3>${escapeHtml(data.title)}</h3>
+        <p>${escapeHtml(data.body)}</p>
+        <ul>${fileList}</ul>
+        <article class="source-card">
+          <p class="source-title">${escapeHtml(data.snippetTitle)}</p>
+          <p class="source-path">Part_2-Putting_it_all_Together/${escapeHtml(data.snippetPath)}</p>
+          <p class="source-note">${escapeHtml(data.snippetNote)}</p>
+          <pre class="source-code"><code>${escapeHtml(data.snippet)}</code></pre>
+        </article>
+      `;
+      highlightCodeBlocks();
+    }
+
+    document.querySelectorAll("input[data-progress]").forEach((input) => {
+      const key = input.dataset.progress;
+      input.checked = Boolean(state[key]);
+      input.addEventListener("change", () => {
+        state[key] = input.checked;
+        saveState();
+        updateProgress();
+      });
+    });
+
+    document.querySelectorAll(".repo-node").forEach((button) => {
+      button.addEventListener("click", () => renderNode(button.dataset.node));
+    });
+
+    document.querySelectorAll(".quiz-card").forEach((card) => {
+      const questionKey = card.dataset.question;
+      const saved = state[questionKey];
+      const feedback = card.querySelector(".feedback");
+      const options = Array.from(card.querySelectorAll(".quiz-option"));
+
+      function mark(option) {
+        const ok = option.dataset.correct === "true";
+        options.forEach((item) => item.classList.remove("correct", "wrong"));
+        option.classList.add(ok ? "correct" : "wrong");
+        feedback.textContent = ok ? "맞았습니다. 이 개념은 다음 단계에서도 계속 씁니다." : "아직 아닙니다. 폴더 역할과 UVM 데이터 흐름을 다시 확인하세요.";
+        state[questionKey] = options.indexOf(option);
+        saveState();
+      }
+
+      options.forEach((option) => option.addEventListener("click", () => mark(option)));
+      if (typeof saved === "number" && options[saved]) mark(options[saved]);
+    });
+
+    document.getElementById("copyPrompt").addEventListener("click", async () => {
+      const text = document.getElementById("promptBox").value;
+      try {
+        await navigator.clipboard.writeText(text);
+        document.getElementById("copyPrompt").textContent = "복사됨";
+      } catch (error) {
+        document.getElementById("promptBox").select();
+        document.getElementById("copyPrompt").textContent = "선택됨, Ctrl+C";
+      }
+      window.setTimeout(() => {
+        document.getElementById("copyPrompt").textContent = "질문 템플릿 복사";
+      }, 1600);
+    });
+
+    document.getElementById("resetProgress").addEventListener("click", () => {
+      localStorage.removeItem(storageKey);
+      window.location.reload();
+    });
+
+    renderNode(state.activeNode || "hdl");
+    updateProgress();
+  </script>
+</body>
+</html>

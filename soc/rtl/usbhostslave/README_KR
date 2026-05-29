@@ -1,0 +1,7 @@
+USB 1.1 host/slave RTL
+
+http://opencores.org/project,usbhostslave
+
+이 RTL에는 usbhost 및 slave core가 모두 포함되어 있습니다. 원하는 core configuration은 top-level file인 usbhost.v, usbslave.v 및 usbhostslave.v를 참조하십시오.
+
+include file은 include/ directory에서 usbhostslave_ prefix를 사용합니다.

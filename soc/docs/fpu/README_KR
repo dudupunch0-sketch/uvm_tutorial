@@ -1,0 +1,60 @@
+FPU 참고 사항
+-------------
+
+1)  FPU는 절대 SNAN 출력을 생성하지 않습니다
+1a) 피연산자 중 하나가 signaling NAN이었을 때 SNAN 출력이
+    asserted됩니다(출력은 quiet NAN이 됩니다).
+1b) FPU의 OUTPUT이 NAN일 때마다 QNAN 출력이 asserted됩니다
+    (항상 quiet NAN).
+
+
+
+FPU
+===
+FPU는 다음 파일들로 구성됩니다:
+
+		verilog/fpu.v
+		verilog/pre_norm.v
+		verilog/primitives.v
+		verilog/post_norm.v
+		verilog/except.v",
+		verilog/pre_norm_fmul.v
+
+(fpu.v가 top level입니다)
+
+testbench는 test_bench/test_top.v에 있습니다
+
+포함된 test bench를 사용하여 FPU를 simulate하려면
+다음과 같은 명령을 사용하십시오:
+
+verilog		test_bench/test_top.v	\
+		verilog/fpu.v		\
+		verilog/pre_norm.v	\
+		verilog/primitives.v	\
+		verilog/post_norm.v	\
+		verilog/except.v	\
+		verilog/pre_norm_fmul.v
+
+
+
+FCMP
+====
+FP compare는 다음으로 구성됩니다
+	fcmp/verilog/fcmp.v
+
+FP compare용 testbench는 fcmp/test_bench/test_top.v에 있습니다
+
+포함된 test bench를 사용하여 FP compare를 simulate하려면
+다음과 같은 명령을 사용하십시오:
+
+verilog		fcmp/test_bench/test_top.v	\
+		fcmp/verilog/fcmp.v
+
+
+
+기타
+====
+directory 구조를 변경하지 마십시오. testbench가
+이에 의존합니다!
+
+test_vectors directory의 README 파일도 읽어 보십시오.

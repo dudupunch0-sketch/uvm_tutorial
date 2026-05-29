@@ -1,0 +1,9 @@
+ROM module
+
+이 module은 Wishbone interface를 가진 read-only memory로 동작합니다. 요청된 각 address에 대해 생성된
+verilog assign list에 의존합니다. 포함되는 이 verilog file은 sw/bootrom path에서 가져옵니다. system을 build하는 것은
+이 bootrom.v도 build해야 합니다(or32 toolchain으로 assembly file을 compile하고 sw/utils의 custom tool로 parsing해야 하며,
+이 모든 과정은 sw/bootrom의 Makefile에 의해 automagically 수행됩니다).
+
+이 ROM은 Wishbone B3 bursting을 지원할 수 있지만, 당연히 더 많은 logic이 필요합니다. `NONBLOCK_DEFINE은
+or1200처럼 모든 sequential assign을 #delay로 수행하는 성가신 coding methodology를 수용하기 위한 것입니다.
